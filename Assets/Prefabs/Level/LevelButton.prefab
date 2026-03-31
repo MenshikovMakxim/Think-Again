@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7046518022713392838}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1240131630191706375, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -90,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1934125469142039877, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_Name
-      value: MenuButton (1) Variant
+      value: LevelButton
       objectReference: {fileID: 0}
     - target: {fileID: 6934270822849941244, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_text
@@ -107,5 +119,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1934125469142039877, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7046518022713392838}
   m_SourcePrefab: {fileID: 100100000, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+--- !u!1 &4112505320533618252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1934125469142039877, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+  m_PrefabInstance: {fileID: 2577722621708751625}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7046518022713392838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112505320533618252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b24241d775f284c85b1766e3417d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelButton
+  levelNumber: 0
+  buttonText: {fileID: 4899515639101906421}
+--- !u!114 &4899515639101906421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6934270822849941244, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+  m_PrefabInstance: {fileID: 2577722621708751625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI

@@ -6,7 +6,12 @@ public class UIManager : MonoBehaviour
     [Header("Всі панелі (сторінки)")]
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
+    public GameObject creditsPanel;
     public GameObject levelSelectPanel;
+    public GameObject gameHudPanel;
+    public GameObject pauseMenuPanel;
+    public GameObject resultPanel;
+
     
     private Stack<GameObject> _historyStack = new Stack<GameObject>();
     private GameObject _currentScreen;
@@ -15,7 +20,11 @@ public class UIManager : MonoBehaviour
     {
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
+        creditsPanel.SetActive(false);
         levelSelectPanel.SetActive(false);
+        gameHudPanel.SetActive(false);
+        pauseMenuPanel.SetActive(false);
+        resultPanel.SetActive(false);
         
         OpenRootScreen(mainMenuPanel);
     }
@@ -58,5 +67,17 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogWarning("Історія порожня! Далі відступати нікуди.");
         }
+    }
+
+    // Відкриває панель ПОВЕРХ усього, не ховаючи HUD і не ламаючи історію
+    public void ShowPopup(GameObject popup)
+    {
+        popup.SetActive(true);
+    }
+
+    // Просто ховає панель
+    public void HidePopup(GameObject popup)
+    {
+        popup.SetActive(false);
     }
 }
