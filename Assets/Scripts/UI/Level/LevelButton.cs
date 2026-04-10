@@ -1,22 +1,22 @@
+using System;
 using UnityEngine;
 using TMPro;
 
 public class LevelButton : MonoBehaviour
 {
-    public int levelNumber; // Номер рівня для запуску
-    public TextMeshProUGUI buttonText; // Посилання на текст на кнопці
-
-    // Метод, який ми викликаємо при натисканні
+    public int levelNumber;
+    public TextMeshProUGUI buttonText;
+    private Action<int> _onClickAction;
+    
     public void OnClick()
     {
-        // Звертаємося до головного менеджера і просимо завантажити рівень
-        LevelManager.Instance.LoadLevel(levelNumber);
+        _onClickAction?.Invoke(levelNumber);
     }
-
-    // Допоміжний метод, щоб автоматично міняти цифру на кнопці
-    public void Setup(int number)
+    
+    public void Setup(int number, Action<int> onClickAction)
     {
         levelNumber = number;
         buttonText.text = number.ToString();
+        _onClickAction = onClickAction;
     }
 }

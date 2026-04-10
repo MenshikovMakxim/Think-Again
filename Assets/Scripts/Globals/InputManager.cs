@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem; // Додаємо цей рядок на горі!
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -46,13 +46,13 @@ public class InputManager : MonoBehaviour
         if (isPressDown)
         {
             RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero);
-            if (hit.collider != null)
+            if (hit.collider is not null)
             {
                 IDraggable draggable = hit.collider.GetComponent<IDraggable>();
                 if (draggable != null)
                 {
                     _currentDraggedObject = draggable;
-                    _currentDraggedObject.OnBeginDrag();
+                    _currentDraggedObject.OnBeginDrag(worldPosition);
                 }
                 else
                 {

@@ -85,15 +85,35 @@ PrefabInstance:
     m_TransformParent: {fileID: 1671449504121542475}
     m_Modifications:
     - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5089817062846474095}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 80a1f0deea6e7044c9b85e9d126e65a7, type: 3}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ClickBack
       objectReference: {fileID: 0}
     - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BackButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 740118035348600770, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: BackButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1240131630191706375, guid: fbdefd143e6d85245b5ffad7071f70bb, type: 3}
