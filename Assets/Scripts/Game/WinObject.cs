@@ -4,7 +4,7 @@ public class WinObject : MonoBehaviour, IClickable
 {
     public void OnClick()
     {
-        Debug.Log("Ціль знайдена! Викликаємо екран перемоги.");
+        Debug.Log("Ціль знайдена!");
         
         LevelManager manager = FindAnyObjectByType<LevelManager>();
         

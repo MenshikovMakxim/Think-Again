@@ -18,6 +18,10 @@ public class LevelManager : MonoBehaviour
     private GameObject _currentLevelInstance;
     private int _currentLevelIndex;
     
+    public Transform GetCurrentLevel()
+    {
+        return _currentLevelInstance != null ? _currentLevelInstance.transform : null;
+    }
     public void LoadLevel(int levelIndex)
     {
 
@@ -101,8 +105,6 @@ public class LevelManager : MonoBehaviour
         UIManager.Instance.ShowPopup(UIManager.Instance.resultPanel);
     }
     
-
-    
     public void ShowHint()
     {
         if (popupHintText != null)
@@ -112,4 +114,5 @@ public class LevelManager : MonoBehaviour
         
         UIManager.Instance.ShowPopup(UIManager.Instance.hintPanel);
     }
+    
 }

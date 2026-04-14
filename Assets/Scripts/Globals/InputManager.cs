@@ -8,13 +8,12 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        // 1. Отримуємо дані з нової системи
+
         Vector2 screenPosition = Vector2.zero;
         bool isPressDown = false;
         bool isPressing = false;
         bool isPressUp = false;
-
-        // Перевірка для ПК (Миша) та Мобілок (Touch)
+        
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
         {
             var touch = Touchscreen.current.primaryTouch;
@@ -30,19 +29,13 @@ public class InputManager : MonoBehaviour
             isPressing = Mouse.current.leftButton.isPressed;
             isPressUp = Mouse.current.leftButton.wasReleasedThisFrame;
         }
-
-        // 2. Перевірка UI (тепер через PointerEventData, щоб було надійніше)
-        if (isPressDown && EventSystem.current.IsPointerOverGameObject()) return;
-
-        // 3. Конвертація координат
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         
+        if (isPressDown && EventSystem.current.IsPointerOverGameObject()) return;
+        
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         Vector3 tempScreenPos = new Vector3(screenPosition.x, screenPosition.y, 10f); 
-
-        // Тепер конвертуємо
         worldPosition = Camera.main.ScreenToWorldPoint(tempScreenPos);
         
-        // --- ЛОГІКА ЗАЛИШАЄТЬСЯ ТАКА САМА ---
         if (isPressDown)
         {
             RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero);
@@ -61,16 +54,27 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-
+        
         if (isPressing && _currentDraggedObject != null)
         {
-            _currentDraggedObject.OnDrag(worldPosition);
+            if (_currentDraggedObject as MonoBehaviour == null)
+            {
+                _currentDraggedObject = null;
+            }
+            else
+            {
+                _currentDraggedObject.OnDrag(worldPosition);
+            }
         }
-
+        
         if (isPressUp && _currentDraggedObject != null)
         {
-            _currentDraggedObject.OnEndDrag();
-            _currentDraggedObject = null;
+            if (_currentDraggedObject as MonoBehaviour != null)
+            {
+                _currentDraggedObject.OnEndDrag();
+            }
+            
+            _currentDraggedObject = null; 
         }
     }
 }
