@@ -103,7 +103,9 @@ public class CraftingManager : MonoBehaviour
 
         if (winObject)
         {
-            UIManager.Instance.ShowPopup(UIManager.Instance.resultPanel);
+            UIManager.Instance.SlowShowPopup(UIManager.Instance.resultPanel);
+            EffectManager.Instance.ApplyWinGlow(newObj);
+            Debug.Log(newObj);
         }
     }
 }

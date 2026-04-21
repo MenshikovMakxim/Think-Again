@@ -14,10 +14,11 @@ public class UIManager : MonoBehaviour
     public GameObject pauseMenuPanel;
     public GameObject resultPanel;
     public GameObject hintPanel;
-
+    
 
     private Stack<GameObject> _historyStack = new Stack<GameObject>();
     private GameObject _currentScreen;
+    private SlowActiveWindow _slowActiveWindow;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        _slowActiveWindow = GetComponent<SlowActiveWindow>();
     }
 
 private void Start()
@@ -85,6 +87,11 @@ private void Start()
     public void ShowPopup(GameObject popup)
     {
         popup.SetActive(true);
+    }
+
+    public void SlowShowPopup(GameObject popup)
+    {
+        _slowActiveWindow.OpenWindow(popup);
     }
     
     public void HidePopup(GameObject popup)

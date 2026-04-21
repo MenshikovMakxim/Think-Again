@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class WinObject : MonoBehaviour, IClickable
 {
+    private LevelManager _manager;
     public void OnClick()
     {
-        Debug.Log("Ціль знайдена!");
+        _manager = FindAnyObjectByType<LevelManager>();
         
-        LevelManager manager = FindAnyObjectByType<LevelManager>();
-        
-        if (manager is not null)
+        if (_manager is not null)
         {
-            manager.ResultLevel();
+            _manager.ResultLevel();
+        }
+        
+        if (transform.parent != null)
+        {
+            EffectManager.Instance.ApplyWinGlow(gameObject);
         }
     }
 }

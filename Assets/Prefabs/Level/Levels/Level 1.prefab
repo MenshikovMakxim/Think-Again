@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 728368168358244950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.98, y: -0.82, z: 0}
-  m_LocalScale: {x: 3.6908, y: 3.1413, z: 1}
+  m_LocalPosition: {x: 2.97, y: -0.93, z: 0}
+  m_LocalScale: {x: 3.684105, y: 2.9344008, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1069784970398812033}
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   objectiveDescription: on click the box
   hintText: try to another box
+  winObject: {fileID: 0}
 --- !u!1 &4502243296730315436
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,8 +243,8 @@ Transform:
   m_GameObject: {fileID: 4502243296730315436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.12, y: -0.71, z: 0}
-  m_LocalScale: {x: 3.6908, y: 3.1413, z: 1}
+  m_LocalPosition: {x: -3.53, y: -0.8935, z: 0}
+  m_LocalScale: {x: 3.3173048, y: 3.0593162, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1069784970398812033}
@@ -319,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806a63416c858c441be49dacec9792c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableItem
+  shouldReturn: 1
 --- !u!61 &2178796782290178762
 BoxCollider2D:
   m_ObjectHideFlags: 0

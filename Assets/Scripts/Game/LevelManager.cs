@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -18,7 +19,13 @@ public class LevelManager : MonoBehaviour
     private GameObject _currentLevelInstance;
     private int _currentLevelIndex;
     private LevelData _currentLevelData;
-    
+    private SimpleGlow2D _winGlowEffect;
+
+    private void Awake()
+    {
+        _winGlowEffect = GetComponent<SimpleGlow2D>();
+    }
+
     public Transform GetCurrentLevel()
     {
         return _currentLevelInstance != null ? _currentLevelInstance.transform : null;
@@ -83,6 +90,11 @@ public class LevelManager : MonoBehaviour
         
         UIManager.Instance.OpenRootScreen(UIManager.Instance.gameHudPanel);
     }
+
+    public SimpleGlow2D GetWinEffect()
+    {
+        return _winGlowEffect ? _winGlowEffect : null;
+    }
     
     public void LoadNextLevel()
     {
@@ -101,14 +113,14 @@ public class LevelManager : MonoBehaviour
     
     public void ResultLevel()
     {
-        Time.timeScale = 0f;
+        // Time.timeScale = 0f;
         
         if (nextLevelButton is not null)
         {
             nextLevelButton.SetActive(_currentLevelIndex < levelPrefabs.Length);
         }
         
-        UIManager.Instance.ShowPopup(UIManager.Instance.resultPanel);
+        UIManager.Instance.SlowShowPopup(UIManager.Instance.resultPanel);
     }
     
     public void ShowHint()
