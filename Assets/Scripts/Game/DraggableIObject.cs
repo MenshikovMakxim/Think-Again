@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DraggableItem : MonoBehaviour, IDraggable
 {
-    public bool shouldReturn = true; 
+    [SerializeField] private bool shouldReturn = true; 
     
     private Vector2 _offset;
     private Vector3 _startPosition;

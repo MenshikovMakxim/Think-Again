@@ -4,18 +4,18 @@ using TMPro;
 
 public class LevelButton : MonoBehaviour
 {
-    public int levelNumber;
-    public TextMeshProUGUI buttonText;
+    [SerializeField] private TextMeshProUGUI buttonText;
+    private int _levelNumber;
     private Action<int> _onClickAction;
     
     public void OnClick()
     {
-        _onClickAction?.Invoke(levelNumber);
+        _onClickAction?.Invoke(_levelNumber);
     }
     
     public void Setup(int number, Action<int> onClickAction)
     {
-        levelNumber = number;
+        _levelNumber = number;
         buttonText.text = number.ToString();
         _onClickAction = onClickAction;
     }

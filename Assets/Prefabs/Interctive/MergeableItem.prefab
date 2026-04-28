@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8273005897530263105}
   - component: {fileID: 8444821355631022583}
-  - component: {fileID: 5205283625231909992}
-  - component: {fileID: 4039271178306218979}
   - component: {fileID: -450015257633016684}
+  - component: {fileID: 5205283625231909992}
   - component: {fileID: -1293695810293329327}
+  - component: {fileID: 4039271178306218979}
+  - component: {fileID: -4784979478569525974}
   m_Layer: 0
   m_Name: MergeableItem
   m_TagString: Untagged
@@ -95,6 +96,33 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!50 &-450015257633016684
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455884222318816021}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &5205283625231909992
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,6 +169,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-1293695810293329327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455884222318816021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806a63416c858c441be49dacec9792c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableItem
+  shouldReturn: 1
 --- !u!114 &4039271178306218979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,34 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
   itemData: {fileID: 0}
   destroyAfterMerge: 1
---- !u!50 &-450015257633016684
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6455884222318816021}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &-1293695810293329327
+--- !u!114 &-4784979478569525974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +205,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6455884222318816021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806a63416c858c441be49dacec9792c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2aff4b826cac1924ebda63b7dd597b40, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DraggableItem
-  shouldReturn: 1
+  m_EditorClassIdentifier: Assembly-CSharp::MagnetComponent
+  duration: 0.6
+  easeType: 26
+  shrink: 1

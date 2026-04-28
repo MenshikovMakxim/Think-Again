@@ -1,65 +1,43 @@
-using System;
 using UnityEngine;
-using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("Налаштування")]
-    public GameObject[] levelPrefabs;
-    public Transform levelHolder;
-    public TextMeshProUGUI hudLevelText;
-    [Header("UI Елементи")]
-    public GameObject nextLevelButton;
-    [Header("UI Тексти")]
-    public TextMeshProUGUI objectiveText;
-    private string _currentHint;
-    [Header("UI Панелі")]
-    public TextMeshProUGUI popupHintText;
+    [SerializeField] private GameObject[] levelPrefabs;
+    [SerializeField] private GameObject levelHolder;
+    [SerializeField] private GameObject craftingSystemProvider;
     
-    private GameObject _currentLevelInstance;
     private int _currentLevelIndex;
     private LevelData _currentLevelData;
-    private SimpleGlow2D _winGlowEffect;
+    private LevelController _levelController;
+    
+    public void OnEnable()
+    {
+        EventBus.OnLevelFinished += FinishLevelScreen;
+    }
+    
+    public void OnDisable()
+    {
+        EventBus.OnLevelFinished -= FinishLevelScreen;
+    }
 
     private void Awake()
     {
-        _winGlowEffect = GetComponent<SimpleGlow2D>();
-    }
-
-    public Transform GetCurrentLevel()
-    {
-        return _currentLevelInstance != null ? _currentLevelInstance.transform : null;
+        _levelController = levelHolder.GetComponent<LevelController>();
+        _levelController.SetMergeProvider(craftingSystemProvider.GetComponent<IMergeSystem>());
     }
     
-    public LevelData GetCurrentLevelData()
-    {
-        return _currentLevelData != null ? _currentLevelData : null;
-    }
-    public void LoadLevel(int levelIndex)
-    {
-
-        _currentLevelIndex = levelIndex;
-        if (_currentLevelInstance != null)
-        {
-            Destroy(_currentLevelInstance);
-        }
-        
-        GameObject prefabToSpawn = levelPrefabs[levelIndex - 1];
-        _currentLevelInstance = Instantiate(prefabToSpawn, levelHolder);
-        _currentLevelData = _currentLevelInstance.GetComponent<LevelData>();
-        
+    public int CountLevels() => levelPrefabs.Length;
     
-        if (_currentLevelData != null)
-        {
-            if (objectiveText != null)
-                objectiveText.text = _currentLevelData.objectiveDescription;
-            
-            _currentHint = _currentLevelData.hintText;
-        }
+    public void LoadLevel(int index)
+    {
         
-        hudLevelText.text = "Level " + levelIndex;
+        if (levelPrefabs.Length <= index) return;
         
-        UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
+        _currentLevelIndex = index;
+        GameObject prefabToSpawn = levelPrefabs[index - 1];
+        _levelController.SpawnLevel(prefabToSpawn, index);
+        
     }
     
     public void PauseGame()
@@ -75,34 +53,22 @@ public class LevelManager : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
-        
-        if (_currentLevelInstance != null)
-        {
-            Destroy(_currentLevelInstance);
-        }
+        _levelController.DestroyCurrentLevel();
     }
     
     public void RestartLevel()
     {
         Time.timeScale = 1f; 
-        
-        LoadLevel(_currentLevelIndex); 
-        
-        UIManager.Instance.OpenRootScreen(UIManager.Instance.gameHudPanel);
-    }
-
-    public SimpleGlow2D GetWinEffect()
-    {
-        return _winGlowEffect ? _winGlowEffect : null;
+        LoadLevel(_currentLevelIndex);
     }
     
     public void LoadNextLevel()
     {
         Time.timeScale = 1f;
         
-        if (_currentLevelIndex < levelPrefabs.Length)
+        if (_currentLevelIndex < CountLevels())
         {
-            LoadLevel(_currentLevelIndex + 1);
+            LoadLevel(_currentLevelIndex+1);
         }
         else
         {
@@ -110,27 +76,9 @@ public class LevelManager : MonoBehaviour
             UIManager.Instance.OpenScreen(UIManager.Instance.levelSelectPanel);
         }
     }
-    
-    public void ResultLevel()
+
+    private void FinishLevelScreen(EventBus.ItemData itemData)
     {
-        // Time.timeScale = 0f;
-        
-        if (nextLevelButton is not null)
-        {
-            nextLevelButton.SetActive(_currentLevelIndex < levelPrefabs.Length);
-        }
-        
-        UIManager.Instance.SlowShowPopup(UIManager.Instance.resultPanel);
+        UIManager.Instance.OpenScreen(UIManager.Instance.resultPanel);
     }
-    
-    public void ShowHint()
-    {
-        if (popupHintText != null)
-        {
-            popupHintText.text = _currentHint;
-        }
-        
-        UIManager.Instance.ShowPopup(UIManager.Instance.hintPanel);
-    }
-    
 }

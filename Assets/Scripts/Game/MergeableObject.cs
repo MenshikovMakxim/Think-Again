@@ -2,25 +2,32 @@
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class MergeableItem : MonoBehaviour
+public class MergeableItem : MonoBehaviour, IMergeable
 {
-    public ItemSO itemData;
-    public bool destroyAfterMerge = true;
-
+    [SerializeField] private ItemSO itemData;
+    [SerializeField] private bool destroyAfterMerge = true;
+    
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
+    private IMergeSystem _mergeSystem;
+
+    // Реалізація інтерфейсу
+    public Transform Transform => transform;
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
     }
+    
+    public void Construct(IMergeSystem mergeSystem)
+    {
+        _mergeSystem = mergeSystem;
+    }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        MergeableItem otherItem = collision.gameObject.GetComponent<MergeableItem>();
-
-        if (otherItem != null)
+        if (collision.gameObject.TryGetComponent(out IMergeable otherItem))
         {
             MergeWith(otherItem);
         }
@@ -28,9 +35,8 @@ public class MergeableItem : MonoBehaviour
     
     public void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        MergeableItem otherItem = otherCollider.gameObject.GetComponent<MergeableItem>();
-
-        if (otherItem != null)
+        // Аналогічно
+        if (otherCollider.gameObject.TryGetComponent(out IMergeable otherItem))
         {
             MergeWith(otherItem);
         }
@@ -41,38 +47,83 @@ public class MergeableItem : MonoBehaviour
     public void SetItemData(ItemSO data)
     {
         itemData = data;
-        
-        if (itemData != null && itemData.itemSprite != null)
-        {
-            _spriteRenderer.sprite = itemData.itemSprite;
-            _boxCollider.size = _spriteRenderer.sprite.bounds.size;
-            gameObject.name = "Item_" + itemData.ID;
-        }
+        UpdateVisuals();
     }
 
-    private void MergeWith(MergeableItem otherItem)
+    public void DestroyItem()
     {
-        string myId = this.itemData.ID;
+        if (destroyAfterMerge) Destroy(gameObject);
+    }
+
+    // private void MergeWith(IMergeable otherItem)
+    // {
+    //     if (_mergeSystem == null) 
+    //     {
+    //         Debug.LogWarning($"[{gameObject.name}] MergeSystem не задана!");
+    //         return;
+    //     }
+    //
+    //     string myId = GetItemData().ID;
+    //     string otherId = otherItem.GetItemData().ID;
+    //
+    //     ItemSO resultData = _mergeSystem.TryGetMergeResult(myId, otherId);
+    //
+    //     if (resultData != null)
+    //     {
+    //         if (gameObject.GetInstanceID() > otherItem.GetInstanceID())
+    //         {
+    //             Vector2 spawnPos = (Transform.position + otherItem.Transform.position) / 2f;
+    //             
+    //             _mergeSystem.SpawnItem(resultData, spawnPos);
+    //             
+    //             otherItem.DestroyItem();
+    //             DestroyItem(); 
+    //         }
+    //     }
+    // }
+    
+    private void MergeWith(IMergeable otherItem)
+    {
+        if (_mergeSystem == null) return;
+
+        string myId = GetItemData().ID;
         string otherId = otherItem.GetItemData().ID;
 
-        ItemSO resultData = CraftingManager.Instance.TryGetMergeResult(myId, otherId);
+        ItemSO resultData = _mergeSystem.TryGetMergeResult(myId, otherId);
 
         if (resultData != null)
         {
-            if (this.gameObject.GetInstanceID() > otherItem.gameObject.GetInstanceID())
+            if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
             {
-                Vector2 spawnPos = (transform.position + otherItem.transform.position) / 2f;
-                
-                CraftingManager.Instance.SpawnItem(resultData, spawnPos);
-                
-                Destroy(otherItem.gameObject);
+                if (((MonoBehaviour)otherItem).TryGetComponent(out MagnetComponent magnet))
+                {
+                    magnet.MagnetizeTo(this.transform, () => 
+                    {
+                        Vector2 spawnPos = this.transform.position; 
+                    
+                        _mergeSystem.SpawnItem(resultData, spawnPos);
+                        
+                        otherItem.DestroyItem();
+                        this.DestroyItem();
+                    });
+                }
+                else
+                {
+                    Vector2 spawnPos = (transform.position + ((MonoBehaviour)otherItem).transform.position) / 2f;
+                    _mergeSystem.SpawnItem(resultData, spawnPos);
+                    otherItem.DestroyItem();
+                    this.DestroyItem();
+                }
             }
-            if (destroyAfterMerge) Destroy(this.gameObject);
         }
     }
     
-    // Метод наглядного перетворення об`єкта
     private void OnValidate()
+    {
+        UpdateVisuals();
+    }
+    
+    private void UpdateVisuals()
     {
         if (itemData != null && itemData.itemSprite != null)
         {

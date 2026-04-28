@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-
         Vector2 screenPosition = Vector2.zero;
         bool isPressDown = false;
         bool isPressing = false;
@@ -49,8 +48,12 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    IClickable clickable = hit.collider.GetComponent<IClickable>();
-                    clickable?.OnClick();
+                    IClickable[] clickables = hit.collider.GetComponents<IClickable>();
+
+                    foreach (var clickable in clickables)
+                    {
+                        clickable.OnClick();
+                    }
                 }
             }
         }

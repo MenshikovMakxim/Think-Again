@@ -3,21 +3,20 @@ using UnityEngine;
 public class LevelSelector : MonoBehaviour
 {
     [Header("UI References")]
-    public LevelButton buttonPrefab; 
-    public Transform buttonsContainer; 
+    [SerializeField] private LevelButton buttonPrefab; 
+    [SerializeField] private Transform buttonsContainer; 
 
     [Header("Dependencies")]
-    public LevelManager levelManager;
+    [SerializeField] private LevelManager levelManager;
     
-    public void GenerateLevelButtons()
+    private void GenerateLevelButtons()
     {
-   
         foreach (Transform child in buttonsContainer)
         {
             Destroy(child.gameObject);
         }
         
-        int totalLevels = levelManager.levelPrefabs.Length;
+        int totalLevels = levelManager.CountLevels();
 
         for (int i = 1; i <= totalLevels; i++)
         {
