@@ -43,4 +43,18 @@ public static class EventBus
     {
         OnItemCrafted?.Invoke(item);
     }
+    
+    public static event Action OnObjectClicked;
+
+    public static void RaiseObjectClicked()
+    {
+        OnObjectClicked?.Invoke();
+    } 
+    
+    public static event Action OnUIButtonClicked;
+
+    public static void RaiseUIButtonClicked()
+    {
+        OnUIButtonClicked?.Invoke();
+    }
 }

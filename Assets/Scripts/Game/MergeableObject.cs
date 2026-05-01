@@ -10,6 +10,7 @@ public class MergeableItem : MonoBehaviour, IMergeable
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
     private IMergeSystem _mergeSystem;
+    private DraggableItem _draggableComponent;
 
     // Реалізація інтерфейсу
     public Transform Transform => transform;
@@ -18,6 +19,7 @@ public class MergeableItem : MonoBehaviour, IMergeable
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        _draggableComponent = GetComponent<DraggableItem>();
     }
     
     public void Construct(IMergeSystem mergeSystem)
@@ -54,36 +56,11 @@ public class MergeableItem : MonoBehaviour, IMergeable
     {
         if (destroyAfterMerge) Destroy(gameObject);
     }
-
-    // private void MergeWith(IMergeable otherItem)
-    // {
-    //     if (_mergeSystem == null) 
-    //     {
-    //         Debug.LogWarning($"[{gameObject.name}] MergeSystem не задана!");
-    //         return;
-    //     }
-    //
-    //     string myId = GetItemData().ID;
-    //     string otherId = otherItem.GetItemData().ID;
-    //
-    //     ItemSO resultData = _mergeSystem.TryGetMergeResult(myId, otherId);
-    //
-    //     if (resultData != null)
-    //     {
-    //         if (gameObject.GetInstanceID() > otherItem.GetInstanceID())
-    //         {
-    //             Vector2 spawnPos = (Transform.position + otherItem.Transform.position) / 2f;
-    //             
-    //             _mergeSystem.SpawnItem(resultData, spawnPos);
-    //             
-    //             otherItem.DestroyItem();
-    //             DestroyItem(); 
-    //         }
-    //     }
-    // }
     
     private void MergeWith(IMergeable otherItem)
     {
+        _draggableComponent.OnDontReturn();
+        
         if (_mergeSystem == null) return;
 
         string myId = GetItemData().ID;
@@ -93,16 +70,23 @@ public class MergeableItem : MonoBehaviour, IMergeable
 
         if (resultData != null)
         {
+
             if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
             {
-                if (((MonoBehaviour)otherItem).TryGetComponent(out MagnetComponent magnet))
+
+                bool amIMoving = _draggableComponent.isDragged; 
+
+                MonoBehaviour movingObj = amIMoving ? this : (MonoBehaviour)otherItem;
+                MonoBehaviour stationaryObj = amIMoving ? (MonoBehaviour)otherItem : this;
+                
+                if (movingObj.TryGetComponent(out MagnetComponent magnet))
                 {
-                    magnet.MagnetizeTo(this.transform, () => 
+                    magnet.MagnetizeTo(stationaryObj.transform, () => 
                     {
-                        Vector2 spawnPos = this.transform.position; 
-                    
-                        _mergeSystem.SpawnItem(resultData, spawnPos);
+                        Vector2 spawnPos = stationaryObj.transform.position; 
                         
+                        _mergeSystem.SpawnItem(resultData, spawnPos);
+                    
                         otherItem.DestroyItem();
                         this.DestroyItem();
                     });

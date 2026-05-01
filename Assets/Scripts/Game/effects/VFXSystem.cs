@@ -33,7 +33,7 @@ public class VFXSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        // Підписуємося на НАШІ оновлені івенти (які передають дані, а не GameObject)
+        // Підписуємося на івенти які передають дані
         EventBus.OnItemCrafted += HandleItemCrafted;
         EventBus.OnLevelFinished += HandleLevelFinished;
     }
@@ -48,8 +48,12 @@ public class VFXSystem : MonoBehaviour
 
     private void HandleItemCrafted(EventBus.ItemData data)
     {
-        // Кажемо системі: "Кинь димок ось тут"
         PlayEffect(EffectType.CraftSmoke, data.TargetPosition);
+        
+        if (data.TargetTransform != null && data.TargetTransform.TryGetComponent(out ItemFlasher flasher))
+        {
+            flasher.PlayFlash();
+        }
     }
 
     private void HandleLevelFinished(EventBus.ItemData data)

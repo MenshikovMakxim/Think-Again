@@ -4,21 +4,21 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     [Header("Базові дані")]
-    public string ID;
-    public Sprite itemSprite;
+    public readonly string ID;
+    public readonly Sprite itemSprite;
 
-    public string GetDisplayName()
-    {
-        if (string.IsNullOrEmpty(ID))
-        {
-            return this.name; 
-        }
-        return ID;
-    }
+    // public string GetDisplayName()
+    // {
+    //     if (string.IsNullOrEmpty(ID))
+    //     {
+    //         return this.name; 
+    //     }
+    //     return ID;
+    // }
     
-    public void UpdateID(string newId)
-    {
-        ID = newId;
-        Debug.Log($"ID для {this.name} змінено на {ID}");
-    }
+    // public void UpdateID(string newId)
+    // {
+    //     ID = newId;
+    //     Debug.Log($"ID для {this.name} змінено на {ID}");
+    // }
 }

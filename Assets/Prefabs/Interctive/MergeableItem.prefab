@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5205283625231909992}
   - component: {fileID: -1293695810293329327}
   - component: {fileID: 4039271178306218979}
+  - component: {fileID: -6017874912475188698}
   - component: {fileID: -4784979478569525974}
   m_Layer: 0
   m_Name: MergeableItem
@@ -196,6 +197,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
   itemData: {fileID: 0}
   destroyAfterMerge: 1
+--- !u!114 &-6017874912475188698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455884222318816021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febdb3014a1e0de4eb14e49344994b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemFlasher
+  flashColor: {r: 3.9999995, g: 3.394793, b: 0.0628271, a: 1}
+  duration: 1
 --- !u!114 &-4784979478569525974
 MonoBehaviour:
   m_ObjectHideFlags: 0

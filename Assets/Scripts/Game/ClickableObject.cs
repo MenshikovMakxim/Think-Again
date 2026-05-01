@@ -15,6 +15,8 @@ public class ClickableObject : MonoBehaviour, IClickable
     
     private void OnClickEffect()
     {
+        EventBus.RaiseObjectClicked();
+        
         transform.DOScale(1.02f, 0.1f)
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.InOutSine);

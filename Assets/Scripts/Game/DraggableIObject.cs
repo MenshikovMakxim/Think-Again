@@ -8,6 +8,7 @@ public class DraggableItem : MonoBehaviour, IDraggable
     private Vector2 _offset;
     private Vector3 _startPosition;
     private Collider2D _collider;
+    public bool isDragged {get; set;}
     
     private void Awake()
     {
@@ -16,6 +17,8 @@ public class DraggableItem : MonoBehaviour, IDraggable
 
     public void OnBeginDrag(Vector2 worldPosition) 
     {
+        isDragged = true;
+        
         StopAllCoroutines(); 
         
         SwitchCollision(true);
@@ -32,6 +35,8 @@ public class DraggableItem : MonoBehaviour, IDraggable
 
     public void OnEndDrag()
     {
+        isDragged = false;
+        
         transform.localScale /= 1.1f;
         
         if (shouldReturn)
@@ -64,5 +69,10 @@ public class DraggableItem : MonoBehaviour, IDraggable
     private void SwitchCollision(bool flag)
     {
         if (_collider != null) _collider.enabled = flag;
+    }
+    
+    public void OnDontReturn()
+    {
+        shouldReturn = false;
     }
 }

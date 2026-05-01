@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2914192961295397566}
   - component: {fileID: 740118035348600770}
   - component: {fileID: 1283907052036975714}
+  - component: {fileID: -5008465678167844661}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -149,6 +150,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &-5008465678167844661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934125469142039877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4712eee274d750245b289d486a9744bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &3340321193050182234
 GameObject:
   m_ObjectHideFlags: 0
