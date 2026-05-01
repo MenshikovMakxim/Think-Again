@@ -41,7 +41,7 @@ public class LevelController :  MonoBehaviour
         _currentLevel = Instantiate(levelPrefab, gameObject.transform);
         SetMergeSystem();
         
-        UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
+        // UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
         EventBus.RaiseLevelStarted(_currentLevel, index);
     }
     

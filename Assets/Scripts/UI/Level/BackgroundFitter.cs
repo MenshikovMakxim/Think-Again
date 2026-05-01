@@ -27,7 +27,7 @@ public class BackgroundFitter : MonoBehaviour
         transform.localScale = Vector3.one;
 
         // 3. Рахуємо реальні розміри екрана у світових координатах Unity
-        float screenHeight = cam.orthographicSize * 2f;
+        float screenHeight = cam.orthographicSize;
         float screenWidth = screenHeight * cam.aspect;
 
         // 4. Дізнаємося розмір самої картинки (спрайта)

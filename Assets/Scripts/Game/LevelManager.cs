@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(int index)
     {
         
-        // if (levelPrefabs.Length <= index) return;
+        UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
         
         _currentLevelIndex = index;
         GameObject prefabToSpawn = levelPrefabs[_currentLevelIndex - 1];
