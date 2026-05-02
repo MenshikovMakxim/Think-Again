@@ -2,6 +2,8 @@
 public interface IMergeable
 {
     ItemSO GetItemData();
+
+    void SetItemData(ItemSO data);
     
     int GetInstanceID(); 
     

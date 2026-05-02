@@ -269,9 +269,17 @@ PrefabInstance:
       value: Level Test
       objectReference: {fileID: 0}
     - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: hintText
+      value: It`s hint for test level
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: winObject
       value: 
       objectReference: {fileID: 11400000, guid: 71aab171e1e848f4f923af2da6e9ae2d, type: 2}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: objectiveDescription
+      value: It`s task for test level
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

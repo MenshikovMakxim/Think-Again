@@ -8,11 +8,14 @@ public class DraggableItem : MonoBehaviour, IDraggable
     private Vector2 _offset;
     private Vector3 _startPosition;
     private Collider2D _collider;
+    private SpriteRenderer _spriteRenderer;
+    private int _originalSortingOrder;
     public bool isDragged {get; set;}
     
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OnBeginDrag(Vector2 worldPosition) 
@@ -26,6 +29,9 @@ public class DraggableItem : MonoBehaviour, IDraggable
         _startPosition = transform.position;
         _offset = (Vector2)transform.position - worldPosition;
         transform.localScale *= 1.1f;
+        
+        _originalSortingOrder = _spriteRenderer.sortingOrder;
+        _spriteRenderer.sortingOrder = 999;
     }
 
     public void OnDrag(Vector2 worldPosition)
@@ -43,6 +49,8 @@ public class DraggableItem : MonoBehaviour, IDraggable
         {
             StartCoroutine(SmoothReturn());
         }
+        
+        _spriteRenderer.sortingOrder = _originalSortingOrder;
     }
     
     private IEnumerator SmoothReturn()

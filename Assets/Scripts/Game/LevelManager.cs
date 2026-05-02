@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour
 
     private void FinishLevelScreen(EventBus.ItemData itemData)
     {
-        UIManager.Instance.OpenScreen(UIManager.Instance.resultPanel);
+        // UIManager.Instance.OpenScreen(UIManager.Instance.resultPanel);
+        UIManager.Instance.ShowResultPopup();
     }
 }
