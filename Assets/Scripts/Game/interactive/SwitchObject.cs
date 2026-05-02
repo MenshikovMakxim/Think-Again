@@ -1,16 +1,67 @@
 using UnityEngine;
 
-public class SwitchObject : MonoBehaviour
+public class SwitchObject : MonoBehaviour, IClickable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Налаштування самого перемикача")]
+    [Tooltip("Чи змінює він свій вигляд при кліку?")]
+    [SerializeField] private bool selfSwitch = true;
+    
+    [Tooltip("Спрайт, коли перемикач УВІМКНЕНО")]
+    [SerializeField] private Sprite onSprite;
+    
+    [Tooltip("Спрайт, коли перемикач ВИМКНЕНО")]
+    [SerializeField] private Sprite offSprite;
+    
+    [Header("Дані для передачі")]
+    [Tooltip("Той самий ItemSO, який ми будемо 'впихати' в інші об'єкти")]
+    [SerializeField] private ItemSO itemDataToPass;
+
+    [Header("Кому ми це передаємо (Піддослідні)")]
+    [Tooltip("Об'єкти, які отримають новий ItemSO")]
+    [SerializeField] private GameObject[] objectsToToggle;
+
+    private SpriteRenderer _selfSpriteRenderer;
+    private bool _isOn = false; 
+
+    private void Awake()
     {
-        
+        _selfSpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
+    // Реалізація твого інтерфейсу IClickable (назву методу підправ під свою)
+    public void OnClick()
+    {
+        EventBus.RaiseObjectClicked();
+        ToggleSwitch();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ToggleSwitch()
     {
+        _isOn = !_isOn;
         
+        if (selfSwitch && _selfSpriteRenderer != null)
+        {
+            _selfSpriteRenderer.sprite = _isOn ? onSprite : offSprite;
+        }
+        
+        if (itemDataToPass == null)
+        {
+            Debug.LogError($"[SwitchObject] {gameObject.name} не призначено ItemSO!");
+            return;
+        }
+        
+        foreach (GameObject obj in objectsToToggle)
+        {
+            if (obj == null) continue;
+            
+            if (obj.TryGetComponent(out IMergeable mergeObject))
+            {
+                mergeObject.SetItemData(itemDataToPass); 
+            }
+            else
+            {
+                Debug.LogWarning($"[SwitchObject] {obj.name} немає скрипта MergeItem!");
+            }
+        }
     }
 }

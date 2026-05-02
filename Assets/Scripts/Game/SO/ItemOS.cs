@@ -4,8 +4,8 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     [Header("Базові дані")]
-    public readonly string ID;
-    public readonly Sprite itemSprite;
+    public string ID;
+    public Sprite itemSprite;
 
     // public string GetDisplayName()
     // {
