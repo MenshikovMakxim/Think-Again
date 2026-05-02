@@ -92,4 +92,11 @@ private void Start()
     {
         popup.SetActive(false);
     }
+
+    public void ShowResultPopup()
+    {
+        resultPanel.SetActive(true);
+        resultPanel.GetComponent<WinScreen>().PlayAnimation();
+        Debug.LogWarning($"ResulPanelActive: {resultPanel.name}!");
+    }
 }
