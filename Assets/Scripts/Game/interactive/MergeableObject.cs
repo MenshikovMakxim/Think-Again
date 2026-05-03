@@ -59,9 +59,16 @@ public class MergeableItem : MonoBehaviour, IMergeable
     
     private void MergeWith(IMergeable otherItem)
     {
-        _draggableComponent.OnDontReturn();
+        // ВИПРАВЛЕННЯ 1: Перевіряємо, чи взагалі є DraggableComponent на цьому об'єкті
+        if (_draggableComponent != null)
+        {
+            _draggableComponent.OnDontReturn();
+        }
         
         if (_mergeSystem == null) return;
+
+        // Перевіряємо наявність ItemData, щоб уникнути помилок, якщо поле пусте
+        if (GetItemData() == null || otherItem.GetItemData() == null) return;
 
         string myId = GetItemData().ID;
         string otherId = otherItem.GetItemData().ID;
@@ -74,7 +81,8 @@ public class MergeableItem : MonoBehaviour, IMergeable
             if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
             {
 
-                bool amIMoving = _draggableComponent.isDragged; 
+                // ВИПРАВЛЕННЯ 2: Безпечно перевіряємо, чи об'єкт зараз тягнуть
+                bool amIMoving = _draggableComponent != null && _draggableComponent.isDragged; 
 
                 MonoBehaviour movingObj = amIMoving ? this : (MonoBehaviour)otherItem;
                 MonoBehaviour stationaryObj = amIMoving ? (MonoBehaviour)otherItem : this;
