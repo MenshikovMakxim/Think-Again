@@ -4604,7 +4604,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.22273402, g: 0.28454325, b: 0.4113207, a: 0}
+  m_BackGroundColor: {r: 0.22273402, g: 0.28454325, b: 0.4113207, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5184,10 +5184,6 @@ MonoBehaviour:
   universalItemPrefab: {fileID: 6455884222318816021, guid: 70d59f8499e0d484ab2037af939dec44, type: 3}
   allRecipes:
   - {fileID: 11400000, guid: 701cc223e4140154fb33c40cefd1d155, type: 2}
-  - {fileID: 11400000, guid: 273a1c40b958cf148afbd584dffa6324, type: 2}
-  - {fileID: 11400000, guid: 347a99bd0042dbf4f9f6e223592aeaa2, type: 2}
-  - {fileID: 11400000, guid: 3a3ad1a66b1f8284da3a42d83bc699d0, type: 2}
-  - {fileID: 11400000, guid: a0549219c460b59418bcd0455e029338, type: 2}
 --- !u!4 &1546147874
 Transform:
   m_ObjectHideFlags: 0
@@ -5381,7 +5377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelPrefabs:
-  - {fileID: 168183891957909291, guid: ce3eefc7ec9e3ba4988dc365efde7e90, type: 3}
   - {fileID: 6551587164936716056, guid: 41ca059fbe3486c41b548697cc7120a4, type: 3}
   levelHolder: {fileID: 97421537}
   craftingSystemProvider: {fileID: 1546147872}

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
+  m_Name: i_banana
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  ID: banana
+  itemSprite: {fileID: 3286163911610860551, guid: 71a640474d11110458d351681a31b921, type: 3}
