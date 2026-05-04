@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
   m_Name: r_wood_and_plank
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  InputItem1: {fileID: 11400000, guid: 68cbe7368e13bdc48ab902ce409c8317, type: 2}
-  InputItem2: {fileID: 11400000, guid: 04107df18bf8a4a4587fa896625fefc3, type: 2}
-  ResultItem: {fileID: 11400000, guid: 71aab171e1e848f4f923af2da6e9ae2d, type: 2}
+  input1: 1
+  input2: 2
+  resultItem: 3
+  consumeInput1: 0
+  consumeInput2: 1

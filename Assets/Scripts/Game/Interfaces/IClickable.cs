@@ -1,5 +1,9 @@
 
-public interface IClickable
+namespace  Game.Interfaces
 {
-    void OnClick();
+   public interface IClickable
+   {
+       void OnClick();
+   } 
 }
+

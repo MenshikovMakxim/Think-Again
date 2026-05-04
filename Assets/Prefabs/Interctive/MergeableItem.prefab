@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 8273005897530263105}
   - component: {fileID: 8444821355631022583}
   - component: {fileID: -450015257633016684}
-  - component: {fileID: 5205283625231909992}
+  - component: {fileID: 4775300155912096808}
   - component: {fileID: -1293695810293329327}
   - component: {fileID: 4039271178306218979}
   - component: {fileID: -6017874912475188698}
   - component: {fileID: -4784979478569525974}
+  - component: {fileID: -4950295811784858365}
   m_Layer: 0
   m_Name: MergeableItem
   m_TagString: Untagged
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: d60bad7a5050ffa459b01fa882ac5737, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +106,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6455884222318816021}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -124,8 +125,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &5205283625231909992
-BoxCollider2D:
+--- !u!58 &4775300155912096808
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -159,17 +160,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!114 &-1293695810293329327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29da519b33c945d195a77cd6a90d7264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
-  itemData: {fileID: 0}
-  destroyAfterMerge: 1
+  initialType: 0
 --- !u!114 &-6017874912475188698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,3 +216,17 @@ MonoBehaviour:
   duration: 0.6
   easeType: 26
   shrink: 1
+--- !u!114 &-4950295811784858365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455884222318816021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c2b61ed5fcb234cbc508d0268d2614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Effects.DraggableVisuals
+  dragScaleMultiplier: 1.1
+  dragSortingOrder: 999

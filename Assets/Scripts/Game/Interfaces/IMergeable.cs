@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
-public interface IMergeable
-{
-    ItemSO GetItemData();
+using Game.SO;
 
-    void SetItemData(ItemSO data);
+namespace Game.Interfaces
+{
+    public interface IMergeable
+    {
+        ItemSO GetItemData();
+
+        void SetItemData(ItemSO data);
+
+        ItemType GetItemType();
+
+        Transform Transform { get; }
     
-    int GetInstanceID(); 
-    
-    Transform Transform { get; }
-    
-    void DestroyItem(); 
+        void ActiveCollider(bool flag);
+        
+        void DestroyItem();
+    }
 }

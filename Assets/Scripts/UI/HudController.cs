@@ -24,6 +24,8 @@ public class HudController :  MonoBehaviour
         levelIndex.text = "Level " + index;
         objectiveText.text = levelData.GetDescription();
         popupHintText.text = levelData.GetHintText();
+        
+        
     }
     
 }

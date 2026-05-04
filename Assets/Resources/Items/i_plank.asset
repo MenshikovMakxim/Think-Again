@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
-  m_Name: i_axe
+  m_Name: i_plank
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  ID: axe
-  itemSprite: {fileID: 7482667652216324306, guid: 13016c5a470b3e74ebff37340b748eac, type: 3}
+  itemType: 3
+  itemSprite: {fileID: 7482667652216324306, guid: 027dc0c7eac5643488a84416df754479, type: 3}
+  defaultScale: {x: 2, y: 1, z: 1}

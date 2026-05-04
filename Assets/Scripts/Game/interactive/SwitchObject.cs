@@ -1,66 +1,69 @@
 using UnityEngine;
+using Game.Interfaces;
+using Game.SO;
 
-public class SwitchObject : MonoBehaviour, IClickable
+namespace Game.Interactive
 {
-    [Header("Налаштування самого перемикача")]
-    [Tooltip("Чи змінює він свій вигляд при кліку?")]
-    [SerializeField] private bool selfSwitch = true;
-    
-    [Tooltip("Спрайт, коли перемикач УВІМКНЕНО")]
-    [SerializeField] private Sprite onSprite;
-    
-    [Tooltip("Спрайт, коли перемикач ВИМКНЕНО")]
-    [SerializeField] private Sprite offSprite;
-    
-    [Header("Дані для передачі")]
-    [Tooltip("Той самий ItemSO, який ми будемо 'впихати' в інші об'єкти")]
-    [SerializeField] private ItemSO itemDataToPass;
-
-    [Header("Кому ми це передаємо (Піддослідні)")]
-    [Tooltip("Об'єкти, які отримають новий ItemSO")]
-    [SerializeField] private GameObject[] objectsToToggle;
-
-    private SpriteRenderer _selfSpriteRenderer;
-    private bool _isOn = false; 
-
-    private void Awake()
+    public class SwitchObject : MonoBehaviour, IClickable
     {
-        _selfSpriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    
-    // Реалізація твого інтерфейсу IClickable (назву методу підправ під свою)
-    public void OnClick()
-    {
-        EventBus.RaiseObjectClicked();
-        ToggleSwitch();
-    }
+        [Header("Налаштування самого перемикача")] [Tooltip("Чи змінює він свій вигляд при кліку?")] [SerializeField]
+        private bool selfSwitch = true;
 
-    private void ToggleSwitch()
-    {
-        _isOn = !_isOn;
-        
-        if (selfSwitch && _selfSpriteRenderer != null)
+        [Tooltip("Спрайт, коли перемикач УВІМКНЕНО")] [SerializeField]
+        private Sprite onSprite;
+
+        [Tooltip("Спрайт, коли перемикач ВИМКНЕНО")] [SerializeField]
+        private Sprite offSprite;
+
+        [Header("Дані для передачі")]
+        [Tooltip("Той самий ItemSO, який ми будемо 'впихати' в інші об'єкти")]
+        [SerializeField]
+        private ItemSO itemDataToPass;
+
+        [Header("Кому ми це передаємо (Піддослідні)")] [Tooltip("Об'єкти, які отримають новий ItemSO")] [SerializeField]
+        private GameObject[] objectsToToggle;
+
+        private SpriteRenderer _selfSpriteRenderer;
+        private bool _isOn = false;
+
+        private void Awake()
         {
-            _selfSpriteRenderer.sprite = _isOn ? onSprite : offSprite;
+            _selfSpriteRenderer = GetComponent<SpriteRenderer>();
         }
         
-        if (itemDataToPass == null)
+        public void OnClick()
         {
-            Debug.LogError($"[SwitchObject] {gameObject.name} не призначено ItemSO!");
-            return;
+            EventBus.RaiseObjectClicked();
+            ToggleSwitch();
         }
-        
-        foreach (GameObject obj in objectsToToggle)
+
+        private void ToggleSwitch()
         {
-            if (obj == null) continue;
-            
-            if (obj.TryGetComponent(out IMergeable mergeObject))
+            _isOn = !_isOn;
+
+            if (selfSwitch && _selfSpriteRenderer != null)
             {
-                mergeObject.SetItemData(itemDataToPass); 
+                _selfSpriteRenderer.sprite = _isOn ? onSprite : offSprite;
             }
-            else
+
+            if (itemDataToPass == null)
             {
-                Debug.LogWarning($"[SwitchObject] {obj.name} немає скрипта MergeItem!");
+                Debug.LogError($"[SwitchObject] {gameObject.name} не призначено ItemSO!");
+                return;
+            }
+
+            foreach (GameObject obj in objectsToToggle)
+            {
+                if (obj == null) continue;
+
+                if (obj.TryGetComponent(out IMergeable mergeObject))
+                {
+                    mergeObject.SetItemData(itemDataToPass);
+                }
+                else
+                {
+                    Debug.LogWarning($"[SwitchObject] {obj.name} немає скрипта MergeItem!");
+                }
             }
         }
     }

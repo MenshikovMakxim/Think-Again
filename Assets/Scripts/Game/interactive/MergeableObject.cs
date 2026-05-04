@@ -1,123 +1,273 @@
 ﻿using UnityEngine;
+using Game.Interfaces;
+using Game.SO;
+using Game.Effects;
+using DG.Tweening;
 
-[RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(SpriteRenderer))]
-public class MergeableItem : MonoBehaviour, IMergeable
+namespace Game.Interactive
 {
-    [SerializeField] private ItemSO itemData;
-    [SerializeField] private bool destroyAfterMerge = true;
-    
-    private SpriteRenderer _spriteRenderer;
-    private BoxCollider2D _boxCollider;
-    private IMergeSystem _mergeSystem;
-    private DraggableItem _draggableComponent;
-
-    // Реалізація інтерфейсу
-    public Transform Transform => transform;
-
-    private void Awake()
+    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class MergeableItem : MonoBehaviour, IMergeable
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _boxCollider = GetComponent<BoxCollider2D>();
-        _draggableComponent = GetComponent<DraggableItem>();
-    }
-    
-    public void Construct(IMergeSystem mergeSystem)
-    {
-        _mergeSystem = mergeSystem;
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out IMergeable otherItem))
-        {
-            MergeWith(otherItem);
-        }
-    }
-    
-    public void OnTriggerEnter2D(Collider2D otherCollider)
-    {
-        // Аналогічно
-        if (otherCollider.gameObject.TryGetComponent(out IMergeable otherItem))
-        {
-            MergeWith(otherItem);
-        }
-    }
-
-    public ItemSO GetItemData() => itemData;
-    
-    public void SetItemData(ItemSO data)
-    {
-        itemData = data;
-        UpdateVisuals();
-    }
-
-    public void DestroyItem()
-    {
-        if (destroyAfterMerge) Destroy(gameObject);
-    }
-    
-    private void MergeWith(IMergeable otherItem)
-    {
-        _draggableComponent.OnDontReturn();
         
-        if (_mergeSystem == null) return;
+        [Tooltip("Вибери тип, і об'єкт сам знайде свої дані в Базі")]
+        [SerializeField] private ItemType initialType = ItemType.None; 
+        
+        private ItemSO _itemData;
 
-        string myId = GetItemData().ID;
-        string otherId = otherItem.GetItemData().ID;
+        private SpriteRenderer _spriteRenderer;
+        private Collider2D _collider2D;
+        private IMergeSystem _mergeSystem;
+        private DraggableItem _draggableComponent;
+        
+        public Transform Transform => transform;
 
-        ItemSO resultData = _mergeSystem.TryGetMergeResult(myId, otherId);
-
-        if (resultData != null)
+        private void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider2D = GetComponent<Collider2D>();
+            _draggableComponent = GetComponent<DraggableItem>();
+        }
 
-            if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
+        private void Start()
+        {
+            _draggableComponent.MustReturn();
+        }
+        
+        public void ActiveCollider(bool flag)
+        {
+            if (_collider2D != null) _collider2D.enabled = flag;
+            _draggableComponent.OnDontReturn();
+        }
+
+        public void Construct(IMergeSystem mergeSystem)
+        {
+            _mergeSystem = mergeSystem;
+            
+            if (_itemData == null && initialType != ItemType.None)
             {
-
-                bool amIMoving = _draggableComponent.isDragged; 
-
-                MonoBehaviour movingObj = amIMoving ? this : (MonoBehaviour)otherItem;
-                MonoBehaviour stationaryObj = amIMoving ? (MonoBehaviour)otherItem : this;
-                
-                if (movingObj.TryGetComponent(out MagnetComponent magnet))
+                ItemSO myData = _mergeSystem.GetItemDataByType(initialType);
+                if (myData != null)
                 {
-                    magnet.MagnetizeTo(stationaryObj.transform, () => 
-                    {
-                        Vector2 spawnPos = stationaryObj.transform.position; 
-                        
-                        _mergeSystem.SpawnItem(resultData, spawnPos);
-                    
-                        otherItem.DestroyItem();
-                        this.DestroyItem();
-                    });
-                }
-                else
-                {
-                    Vector2 spawnPos = (transform.position + ((MonoBehaviour)otherItem).transform.position) / 2f;
-                    _mergeSystem.SpawnItem(resultData, spawnPos);
-                    otherItem.DestroyItem();
-                    this.DestroyItem();
+                    SetItemData(myData);
+                    UpdateVisuals();
                 }
             }
         }
-    }
-    
-    private void OnValidate()
-    {
-        UpdateVisuals();
-    }
-    
-    private void UpdateVisuals()
-    {
-        if (itemData != null && itemData.itemSprite != null)
+        public void OnTriggerEnter2D(Collider2D otherCollider)
         {
-            if (_spriteRenderer == null) _spriteRenderer = GetComponent<SpriteRenderer>();
-            if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider2D>();
+            if (otherCollider.gameObject.TryGetComponent(out IMergeable otherItem))
+            {
+                MergeWith(otherItem);
+            }
+        } 
 
-            if (_spriteRenderer != null) _spriteRenderer.sprite = itemData.itemSprite;
-            if (_boxCollider != null) _boxCollider.size = itemData.itemSprite.bounds.size;
+        private bool IsMoving()
+        {
+            if (_draggableComponent != null)
+            {
+                return _draggableComponent.IsDragged;
+            }
+
+            return false;
+        }
+        
+        public ItemSO GetItemData()
+        {
+            return _itemData;
+        }
+
+        public ItemType GetItemType()
+        {
+            if (_itemData != null)
+            {
+                return _itemData.itemType;
+            }
             
-            gameObject.name = "Item_" + itemData.ID;
+            return initialType;
+        }
+
+        public void SetItemData(ItemSO data)
+        {
+            _itemData = data;
+            
+            if (data != null)
+            {
+                initialType = data.itemType;
+            } 
+        }
+        
+        public Vector3 GetStartPosition()
+        {
+            if (_draggableComponent != null)
+            {
+                return _draggableComponent.StartPosition;
+            }
+            
+            return transform.position;
+        }
+        
+        public void DestroyItem()
+        {
+            Destroy(gameObject);
+        }
+        
+        private RecipeSO TryCreateItem(IMergeable otherItem)
+        {
+            if (_mergeSystem == null) return null;
+            
+            ItemType myType = GetItemType();
+            ItemType otherType = otherItem.GetItemType();
+            
+            return _mergeSystem.TryGetRecipe(myType, otherType);
+        }
+
+        private void MergeWith(IMergeable otherItem)
+        {
+            
+            RecipeSO recipe = TryCreateItem(otherItem);
+            
+            if (recipe != null)
+            {
+                otherItem.ActiveCollider(false);
+                ActiveCollider(false);
+                
+                if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
+                {
+                    OnEnableMagnet(otherItem, recipe);
+                }
+            }
+        }
+        
+        private void OnEnableMagnet(IMergeable target, RecipeSO recipe)
+        {
+            float myDistToHome = Vector3.Distance(transform.position, GetStartPosition());
+            float targetDistToHome = 0f;
+            
+            if (target is MergeableItem targetItem)
+            {
+                targetDistToHome = Vector3.Distance(targetItem.transform.position, targetItem.GetStartPosition());
+            }
+            
+            bool amIMoving = myDistToHome >= targetDistToHome;
+
+            MonoBehaviour movingObj = amIMoving ? this : (MonoBehaviour)target;
+            MonoBehaviour stationaryObj = amIMoving ? (MonoBehaviour)target : this;
+
+
+            if (movingObj.TryGetComponent(out MagnetComponent magnet))
+            {
+                magnet.MagnetizeTo(stationaryObj.transform, () =>
+                {
+                    Vector2 spawnPos = stationaryObj.transform.position;
+                    ExecuteCraft(target, recipe, spawnPos);
+                });
+            }
+            else
+            {
+                Vector2 spawnPos = (transform.position + ((MonoBehaviour)target).transform.position) / 2f;
+                ExecuteCraft(target, recipe, spawnPos);
+            }
+        }
+        private void ExecuteCraft(IMergeable target, RecipeSO recipe, Vector2 spawnPos)
+        {
+            bool amIConsumed = recipe.ShouldConsume(this.GetItemType());
+            bool isTargetConsumed = recipe.ShouldConsume(target.GetItemType());
+
+            Vector3 resultDestination = spawnPos; 
+
+            if (amIConsumed && !isTargetConsumed)
+            {
+                resultDestination = this.GetStartPosition(); 
+            }
+            else if (!amIConsumed && isTargetConsumed)
+            {
+                if (target is MergeableItem targetItem)
+                {
+                    resultDestination = targetItem.GetStartPosition(); 
+                }
+            }
+            
+            if (recipe.resultItem != ItemType.None)
+            {
+                GameObject newResult = _mergeSystem.SpawnItem(recipe.resultItem, spawnPos);
+                
+                if (newResult != null)
+                {
+                    Collider2D col = newResult.GetComponent<Collider2D>();
+                    if (col != null) col.enabled = false;
+                    
+                    if (Vector3.Distance(newResult.transform.position, resultDestination) > 0.05f)
+                    {
+                        newResult.transform.DOMove(resultDestination, 0.25f)
+                            .SetEase(Ease.OutQuad)
+                            .OnComplete(() => 
+                            {
+                                if (col != null) col.enabled = true;
+                                if (newResult.TryGetComponent(out DraggableItem drag)) drag.SetStartPosition(resultDestination);
+                            });
+                    }
+                    else 
+                    {
+                        if (col != null) col.enabled = true;
+                        if (newResult.TryGetComponent(out DraggableItem drag)) drag.SetStartPosition(resultDestination);
+                    }
+                }
+            }
+            
+            if (amIConsumed) this.DestroyItem();
+            else this.RestoreAfterCraft(); 
+            
+            if (isTargetConsumed) target.DestroyItem();
+            else if (target is MergeableItem otherItem) otherItem.RestoreAfterCraft();
+        }
+        
+        private void RestoreAfterCraft()
+        {
+            if (_draggableComponent != null)
+            {
+                _draggableComponent.ForceReturn();
+                ActiveCollider(false);
+            }
+            
+            if (TryGetComponent(out MagnetComponent magnet) && _itemData != null)
+            {
+                magnet.Restore(_itemData.defaultScale);
+            }
+        }
+        
+        private void UpdateVisuals()
+        {
+            if (_itemData != null && _itemData.itemSprite != null)
+            {
+                if (_spriteRenderer != null) 
+                {
+                    _spriteRenderer.sprite = _itemData.itemSprite;
+                }
+                
+                transform.localScale = _itemData.defaultScale; 
+                gameObject.name = "Item_" + _itemData.itemType;
+            }
+        }
+        
+        private void OnValidate()
+        {
+        #if UNITY_EDITOR
+            if (initialType != ItemType.None && !Application.isPlaying)
+            {
+                ItemSO[] allEditorItems = Resources.LoadAll<ItemSO>("Items");
+                foreach (var item in allEditorItems)
+                {
+                    if (item.itemType == initialType)
+                    {
+                        _itemData = item; 
+                        UpdateVisuals();
+                        return; 
+                    }
+                }
+            }
+        #endif
         }
     }
 }

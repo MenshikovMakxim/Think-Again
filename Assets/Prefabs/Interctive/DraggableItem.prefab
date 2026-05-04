@@ -102,8 +102,9 @@ GameObject:
   - component: {fileID: 1961222379283313228}
   - component: {fileID: 2883892975173044061}
   - component: {fileID: 410996506882285005}
-  - component: {fileID: 4111392376717587462}
+  - component: {fileID: 8565898305207508975}
   - component: {fileID: -5111322096931521065}
+  - component: {fileID: 8403720437419285788}
   m_Layer: 0
   m_Name: DraggableItem
   m_TagString: Untagged
@@ -213,8 +214,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &4111392376717587462
-BoxCollider2D:
+--- !u!58 &8565898305207508975
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -248,17 +249,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!114 &-5111322096931521065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,3 +263,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableItem
   shouldReturn: 1
+--- !u!114 &8403720437419285788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648986396915566314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c2b61ed5fcb234cbc508d0268d2614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Effects.DraggableVisuals
+  dragScaleMultiplier: 1.1
+  dragSortingOrder: 999

@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Game.Interfaces;
+using Game.Interactive;
+using Game.SO;
+using Game.Systems;
 
 public class CraftingManager : MonoBehaviour, IMergeSystem
 {
-    [Header("База рецептів")]
+    [Header("Префаб для створення предметів")]
     [SerializeField] private GameObject universalItemPrefab;
-    [SerializeField] private List<RecipeSO> allRecipes;
     
-    private Dictionary<string, RecipeSO> _recipeDatabase =  new Dictionary<string, RecipeSO>();
+    [Header("Посилання на Базу")]
+    [SerializeField] private GameDatabase database;
+    
     private GameObject _currentLevel;
     
-    private void Awake()
-    {
-        InitializeRecipes();
-    }
-
     public void OnEnable()
     {
         EventBus.OnLevelStarted += GetCurrentLevel;
@@ -25,65 +24,48 @@ public class CraftingManager : MonoBehaviour, IMergeSystem
         EventBus.OnLevelStarted -= GetCurrentLevel;
     }
     
-    private void InitializeRecipes()
-    {
-        _recipeDatabase = new Dictionary<string, RecipeSO>();
+    // ==========================================
+    // API ДЛЯ ПРЕДМЕТІВ (Просто делегуємо в Базу)
+    // ==========================================
 
-        foreach (RecipeSO recipe in allRecipes)
-        {
-            RegisterRecipe(recipe);
-        }
-    }
-    
-    private void RegisterRecipe(RecipeSO recipe)
+    public RecipeSO TryGetRecipe(ItemType type1, ItemType type2)
     {
-        if (recipe == null || recipe.InputItem1 == null || recipe.InputItem2 == null) 
+        if (database == null) 
         {
-            return;
+            Debug.LogError("[CraftingManager] Базу даних не підключено в Інспекторі!");
+            return null;
         }
         
-        string key = BuildRecipeKey(recipe.InputItem1.ID, recipe.InputItem2.ID);
+        return database.GetRecipe(type1, type2);
+    }
+
+    public ItemSO GetItemDataByType(ItemType type)
+    {
+        if (database == null) return null;
         
-        if (!_recipeDatabase.ContainsKey(key))
-        {
-            _recipeDatabase.Add(key, recipe);
-        }
+        return database.GetItemData(type);
     }
     
-    private string BuildRecipeKey(string id1, string id2)
-    {
-        if (string.Compare(id1, id2) < 0)
-        {
-            return $"{id1}_{id2}";
-        }
-        else
-        {
-            return $"{id2}_{id1}";
-        }
-    }
+    // ==========================================
+    // ЛОГІКА СПАВНУ ТА КРАФТУ
+    // ==========================================
     
-    public ItemSO TryGetMergeResult(string id1, string id2)
+    public GameObject SpawnItem(ItemType resultType, Vector2 position)
     {
-        string key = BuildRecipeKey(id1, id2);
+        ItemSO itemData = GetItemDataByType(resultType);
         
-        if (_recipeDatabase.TryGetValue(key, out RecipeSO recipe))
+        if (universalItemPrefab == null || itemData == null)
         {
-            return recipe.GetResultItem();
-        }
-        
-        return null;
-    }
-    
-    public void SpawnItem(ItemSO itemData, Vector2 position)
-    {
-        if (universalItemPrefab is null)
-        {
-            return;
+            Debug.LogError($"[CraftingManager] Немає префабу або в базі відсутній ItemSO для типу {resultType}!");
+            return null;
         }
         
         GameObject newObj = Instantiate(universalItemPrefab, position, Quaternion.identity, _currentLevel.transform);
         Setup(itemData, newObj);
+        
         EventBus.RaiseItemCrafted(EventBus.SetItemData(false, itemData, position, newObj.transform));
+        
+        return newObj;
     }
 
     private void Setup(ItemSO data, GameObject item)

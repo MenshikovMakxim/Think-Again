@@ -6,7 +6,6 @@ public class UIButtonSound : MonoBehaviour
 {
     private void Awake()
     {
-        // Беремо компонент кнопки і через код прив'язуємо нашу подію до її OnClick
         Button btn = GetComponent<Button>();
         
         btn.onClick.AddListener(() => 

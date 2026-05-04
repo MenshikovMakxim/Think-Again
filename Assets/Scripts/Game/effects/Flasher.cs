@@ -1,38 +1,37 @@
 using UnityEngine;
 using DG.Tweening;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class ItemFlasher : MonoBehaviour
+namespace Game.Effects
 {
-
-    [ColorUsage(true, true)]
-    [Tooltip("Яким кольором підсвітити предмет при появі? (Наприклад, яскраво-жовтий)")]
-    [SerializeField] private Color flashColor = Color.yellow;
-    
-    [Tooltip("Як довго триває згасання спалаху (в секундах)")]
-    [SerializeField] private float duration = 0.5f;
-
-    private SpriteRenderer _spriteRenderer;
-    private Color _originalColor;
-    
-    private void Awake()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class ItemFlasher : MonoBehaviour
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        // Запам'ятовуємо рідний колір об'єкта (зазвичай це просто білий без фільтрів)
-        _originalColor = _spriteRenderer.color; 
-    }
+        [ColorUsage(true, true)]
+        [Tooltip("Яким кольором підсвітити предмет при появі")]
+        [SerializeField]
+        private Color flashColor = Color.yellow;
 
-    public void PlayFlash()
-    {
-        // 1. Вбиваємо попередню анімацію кольору, якщо вона раптом була
-        _spriteRenderer.DOKill();
+        [Tooltip("Як довго триває згасання спалаху (в секундах)")] [SerializeField]
+        private float duration = 0.5f;
 
-        // 2. Миттєво фарбуємо предмет у колір спалаху
-        _spriteRenderer.color = flashColor;
+        private SpriteRenderer _spriteRenderer;
+        private Color _originalColor;
 
-        // 3. Плавно повертаємо до рідного кольору
-        _spriteRenderer.DOColor(_originalColor, duration)
-            .SetEase(Ease.OutQuad) // OutQuad робить старт різким, а кінець - плавним
-            .SetLink(gameObject);
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _originalColor = _spriteRenderer.color;
+        }
+
+        public void PlayFlash()
+        {
+            _spriteRenderer.DOKill();
+            
+            _spriteRenderer.color = flashColor;
+            
+            _spriteRenderer.DOColor(_originalColor, duration)
+                .SetEase(Ease.OutQuad) 
+                .SetLink(gameObject);
+        }
     }
 }
