@@ -12,7 +12,8 @@ namespace Game.Interactive
     {
         
         [Tooltip("Вибери тип, і об'єкт сам знайде свої дані в Базі")]
-        [SerializeField] private ItemType initialType = ItemType.None; 
+        [SerializeField] private ItemType initialType = ItemType.None;
+        [SerializeField] private float resizeCollision = 2f;
         
         private ItemSO _itemData;
 
@@ -261,8 +262,7 @@ namespace Game.Interactive
             
             if (TryGetComponent<CircleCollider2D>(out var circle))
             {
-                circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / 2f;
-                circle.offset = sprite.sprite.bounds.center - transform.position;
+                circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / resizeCollision;
             }
             
             if (TryGetComponent<BoxCollider2D>(out var box))
