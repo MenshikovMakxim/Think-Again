@@ -10,7 +10,7 @@ namespace Game.SO
         public ItemType input2;
 
         [Header("Результат (Що отримуємо)")] 
-        // Результат залишаємо як ItemSO, бо системі мержу потрібен сам префаб/дані для спавну нового об'єкта
+
         public ItemType resultItem; 
 
         [Header("Обов'язки: Правила знищення")]
@@ -23,10 +23,8 @@ namespace Game.SO
         public bool CanCraft(ItemType itemA, ItemType itemB)
         {
             if (itemA == ItemType.None || itemB == ItemType.None) return false;
-
-            // Перевіряємо прямий збіг (A=1, B=2)
+            
             bool isStraightMatch = (itemA == input1 && itemB == input2);
-            // Перевіряємо зворотний збіг (A=2, B=1)
             bool isReverseMatch = (itemA == input2 && itemB == input1);
 
             return isStraightMatch || isReverseMatch;
