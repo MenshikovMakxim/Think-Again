@@ -15,5 +15,5 @@ MonoBehaviour:
   input1: 1
   input2: 2
   resultItem: 3
-  consumeInput1: 0
+  consumeInput1: 1
   consumeInput2: 1
