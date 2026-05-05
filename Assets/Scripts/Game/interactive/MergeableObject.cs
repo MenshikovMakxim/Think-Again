@@ -32,13 +32,13 @@ namespace Game.Interactive
 
         private void Start()
         {
-            _draggableComponent.MustReturn();
+            if (_draggableComponent != null) _draggableComponent.MustReturn();
         }
         
         public void ActiveCollider(bool flag)
         {
             if (_collider2D != null) _collider2D.enabled = flag;
-            _draggableComponent.OnDontReturn();
+            if (_draggableComponent != null) _draggableComponent.OnDontReturn();
         }
 
         public void Construct(IMergeSystem mergeSystem)
@@ -95,6 +95,7 @@ namespace Game.Interactive
             if (data != null)
             {
                 initialType = data.itemType;
+                UpdateVisuals();
             } 
         }
         
@@ -181,6 +182,7 @@ namespace Game.Interactive
             {
                 resultDestination = this.GetStartPosition(); 
             }
+            
             else if (!amIConsumed && isTargetConsumed)
             {
                 if (target is MergeableItem targetItem)
@@ -244,13 +246,32 @@ namespace Game.Interactive
                 if (_spriteRenderer != null) 
                 {
                     _spriteRenderer.sprite = _itemData.itemSprite;
+                    ResizeCollider(_spriteRenderer);
+                    
                 }
                 
                 transform.localScale = _itemData.defaultScale; 
                 gameObject.name = "Item_" + _itemData.itemType;
             }
         }
-        
+
+        private void ResizeCollider(SpriteRenderer sprite)
+        {
+            Vector2 spriteSize = sprite.sprite.bounds.size;
+            
+            if (TryGetComponent<CircleCollider2D>(out var circle))
+            {
+                circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / 2f;
+                circle.offset = sprite.sprite.bounds.center - transform.position;
+            }
+            
+            if (TryGetComponent<BoxCollider2D>(out var box))
+            {
+                box.size = spriteSize;
+                box.offset = sprite.sprite.bounds.center - transform.position;
+            }
+        }
+
         private void OnValidate()
         {
         #if UNITY_EDITOR
