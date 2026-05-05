@@ -1,20 +1,24 @@
 using UnityEngine;
-using DG.Tweening;
+using Game.Interfaces;
 
-public class ClickableObject : MonoBehaviour, IClickable
+namespace Game.Interactive
 {
-    [SerializeField] private bool isWinObject = false;
-    public void OnClick()
+    public class ClickableObject : MonoBehaviour, IClickable
     {
-        OnClickEffect();
-        if (isWinObject)
+        [SerializeField] private bool isWinObject = false;
+
+        public void OnClick()
         {
-            EventBus.RaiseLevelFinished(EventBus.SetItemData(true, null, transform.position, transform));
+            OnClickEffect();
+            if (isWinObject)
+            {
+                EventBus.RaiseLevelFinished(EventBus.SetItemData(true, null, transform.position, transform));
+            }
         }
-    }
-    
-    private void OnClickEffect()
-    {
-        EventBus.RaiseObjectClicked();
+
+        private void OnClickEffect()
+        {
+            EventBus.RaiseObjectClicked();
+        }
     }
 }

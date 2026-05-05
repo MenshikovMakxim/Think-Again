@@ -1,11 +1,12 @@
 using UnityEngine;
+using Game.Interfaces;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("Налаштування")]
     [SerializeField] private GameObject[] levelPrefabs;
     [SerializeField] private GameObject levelHolder;
-    [SerializeField] private GameObject craftingSystemProvider;
+    [SerializeField] private GameObject craftingSystem;
     
     private int _currentLevelIndex;
     private LevelData _currentLevelData;
@@ -24,7 +25,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         _levelController = levelHolder.GetComponent<LevelController>();
-        _levelController.SetMergeProvider(craftingSystemProvider.GetComponent<IMergeSystem>());
+        _levelController.SetMergeProvider(craftingSystem.GetComponent<IMergeSystem>());
     }
     
     public int CountLevels() => levelPrefabs.Length;
@@ -79,7 +80,6 @@ public class LevelManager : MonoBehaviour
 
     private void FinishLevelScreen(EventBus.ItemData itemData)
     {
-        // UIManager.Instance.OpenScreen(UIManager.Instance.resultPanel);
         UIManager.Instance.ShowResultPopup();
     }
 }

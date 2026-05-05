@@ -1460,10 +1460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VFXSystem
   effectEntries:
-  - Type: 2
-    Prefab: {fileID: 5241654136174772126, guid: a6cd0c43d7e08c34990d68e4a7594edd, type: 3}
-  - Type: 0
-    Prefab: {fileID: 55253698366583441, guid: ac7ee619d4054ab45a536e0eccd5fda2, type: 3}
+  - type: 0
+    prefab: {fileID: 0}
   vfxContainer: {fileID: 1092415670}
 --- !u!224 &390743684 stripped
 RectTransform:
@@ -5182,8 +5180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
   universalItemPrefab: {fileID: 6455884222318816021, guid: 70d59f8499e0d484ab2037af939dec44, type: 3}
-  allRecipes:
-  - {fileID: 11400000, guid: 701cc223e4140154fb33c40cefd1d155, type: 2}
+  database: {fileID: 1996812610}
 --- !u!4 &1546147874
 Transform:
   m_ObjectHideFlags: 0
@@ -5379,7 +5376,7 @@ MonoBehaviour:
   levelPrefabs:
   - {fileID: 6551587164936716056, guid: 41ca059fbe3486c41b548697cc7120a4, type: 3}
   levelHolder: {fileID: 97421537}
-  craftingSystemProvider: {fileID: 1546147872}
+  craftingSystem: {fileID: 1546147872}
 --- !u!4 &1620427716
 Transform:
   m_ObjectHideFlags: 0
@@ -6178,6 +6175,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949462929}
   m_CullTransparentMesh: 1
+--- !u!1 &1996812609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1996812611}
+  - component: {fileID: 1996812610}
+  m_Layer: 0
+  m_Name: '[Database]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1996812610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996812609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0afcd630d40a6143a00526f3dacc6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Systems.GameDatabase
+--- !u!4 &1996812611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996812609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1998882836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 445104107141315778, guid: f9923acfd66a57849963685a98abbaf6, type: 3}
@@ -7238,3 +7279,4 @@ SceneRoots:
   - {fileID: 2034153207}
   - {fileID: 1092415670}
   - {fileID: 601502073}
+  - {fileID: 1996812611}

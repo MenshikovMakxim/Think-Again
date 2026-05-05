@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public interface IDraggable
+namespace Game.Interfaces
 {
-    bool isDragged { get; set; }
-    void OnBeginDrag(Vector2 worldPosition);
-    void OnDrag(Vector2 mousePosition);
-    void OnEndDrag();
+    public interface IDraggable
+    {
+        bool IsDragged { get; set; }
+        void OnBeginDrag(Vector2 worldPosition);
+        void OnDrag(Vector2 mousePosition);
+        void OnEndDrag();
+    }
 }

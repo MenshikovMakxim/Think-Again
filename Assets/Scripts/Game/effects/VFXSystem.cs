@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Effects;
+using UnityEngine.Serialization;
 
 public class VFXSystem : MonoBehaviour
 {
     [System.Serializable]
     public struct EffectEntry
     {
-        public EffectType Type;
-        public GameObject Prefab; // Сюди в Інспекторі кидаємо префаб з ParticleSystem або анімацією
+        public EffectType type;
+        public GameObject prefab;
     }
 
     [Header("Налаштування ефектів")]
@@ -16,17 +18,15 @@ public class VFXSystem : MonoBehaviour
     [Header("Кошик")]
     [SerializeField] private Transform vfxContainer;
 
-    // Словник для швидкого пошуку префаба за його типом
-    private Dictionary<EffectType, GameObject> _effectDatabase = new Dictionary<EffectType, GameObject>();
+    private readonly Dictionary<EffectType, GameObject> _effectDatabase = new Dictionary<EffectType, GameObject>();
 
     private void Awake()
     {
-        // Заповнюємо базу
         foreach (var entry in effectEntries)
         {
-            if (!_effectDatabase.ContainsKey(entry.Type) && entry.Prefab != null)
+            if (!_effectDatabase.ContainsKey(entry.type) && entry.prefab != null)
             {
-                _effectDatabase.Add(entry.Type, entry.Prefab);
+                _effectDatabase.Add(entry.type, entry.prefab);
             }
         }
     }
@@ -60,7 +60,6 @@ public class VFXSystem : MonoBehaviour
     {
         if (data.IsWin)
         {
-            // Для світіння передаємо parent Transform, щоб світіння прилипло до об'єкта
             PlayEffect(EffectType.WinGlow, data.TargetPosition, data.TargetTransform);
         }
     }
@@ -74,18 +73,16 @@ public class VFXSystem : MonoBehaviour
             Debug.LogWarning($"[VFXSystem] Ефект {type} не знайдено в базі!");
             return null;
         }
-
-        // В ІДЕАЛІ ТУТ МАЄ БУТИ ПУЛ: GameObject effect = pool.Get();
-        // Але для спрощення поки що залишимо Instantiate.
+        
         Transform actualParent = parent != null ? parent : vfxContainer;
         
         GameObject effectInstance = Instantiate(prefab, position, Quaternion.identity, actualParent);
 
         // Якщо це Fire & Forget ефект без прив'язки, даємо йому команду самознищитись (або повернутися в пул)
-        if (parent == null)
-        {
-            Destroy(effectInstance, 2f); // Заглушка. Краще налаштувати автознищення в самій ParticleSystem (Stop Action -> Destroy)
-        }
+        // if (parent == null)
+        // {
+        //     Destroy(effectInstance, 2f); // Заглушка. Краще налаштувати автознищення в самій ParticleSystem (Stop Action -> Destroy)
+        // }
 
         return effectInstance;
     }
