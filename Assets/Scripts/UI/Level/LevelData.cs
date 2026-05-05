@@ -1,4 +1,5 @@
 using UnityEngine;
+using Game.SO;
 
 public class LevelData : MonoBehaviour
 {
@@ -14,9 +15,13 @@ public class LevelData : MonoBehaviour
     [Header("Win Object")]
     [SerializeField] private ItemSO winObject;
     
+    // public bool IsWinObject(ItemSO item)
+    // {
+    //     return item != null && winObject != null && item.ID == winObject.ID;
+    // }
     public bool IsWinObject(ItemSO item)
     {
-        return item != null && winObject != null && item.ID == winObject.ID;
+        return item != null && winObject != null && item.itemType == winObject.itemType;
     }
     
     public string GetHintText() => hintText;

@@ -1,86 +1,92 @@
-using System.Collections; 
+using System;
+using System.Collections;
 using UnityEngine;
+using Game.Interfaces;
 
-public class DraggableItem : MonoBehaviour, IDraggable
+namespace Game.Interactive
 {
-    [SerializeField] private bool shouldReturn = true; 
-    
-    private Vector2 _offset;
-    private Vector3 _startPosition;
-    private Collider2D _collider;
-    private SpriteRenderer _spriteRenderer;
-    private int _originalSortingOrder;
-    public bool isDragged {get; set;}
-    
-    private void Awake()
+    public class DraggableItem : MonoBehaviour, IDraggable
     {
-        _collider = GetComponent<Collider2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        public event Action OnGrabbed;
+        public event Action OnReleased;
 
-    public void OnBeginDrag(Vector2 worldPosition) 
-    {
-        isDragged = true;
-        
-        StopAllCoroutines(); 
-        
-        SwitchCollision(true);
-        
-        _startPosition = transform.position;
-        _offset = (Vector2)transform.position - worldPosition;
-        transform.localScale *= 1.1f;
-        
-        _originalSortingOrder = _spriteRenderer.sortingOrder;
-        _spriteRenderer.sortingOrder = 999;
-    }
+        [SerializeField] private bool shouldReturn = true;
 
-    public void OnDrag(Vector2 worldPosition)
-    {
-        transform.position = (Vector3)(worldPosition + _offset);
-    }
-
-    public void OnEndDrag()
-    {
-        isDragged = false;
+        private Vector2 _offset;
+        private Vector3 _startPosition;
         
-        transform.localScale /= 1.1f;
+        public bool IsDragged { get; set; } 
         
-        if (shouldReturn)
+        private void Start()
         {
-            StartCoroutine(SmoothReturn());
+            _startPosition = transform.position;
         }
         
-        _spriteRenderer.sortingOrder = _originalSortingOrder;
-    }
-    
-    private IEnumerator SmoothReturn()
-    {
-        SwitchCollision(false);
-        
-        float elapsed = 0;
-        float duration = 0.2f; 
-        Vector3 currentPos = transform.position;
-        
+        public void SetStartPosition(Vector3 pos) { _startPosition = pos; }
+        public Vector3 StartPosition => _startPosition;
 
-        while (elapsed < duration)
+        public void OnBeginDrag(Vector2 worldPosition)
         {
-            transform.position = Vector3.Lerp(currentPos, _startPosition, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null; 
+            IsDragged = true;
+            StopAllCoroutines();
+            
+            _offset = (Vector2)transform.position - worldPosition;
+            
+            OnGrabbed?.Invoke();
+        }
+
+        public void OnDrag(Vector2 worldPosition)
+        {
+            transform.position = (Vector3)(worldPosition + _offset);
+        }
+
+        public void OnEndDrag()
+        {
+            IsDragged = false;
+            OnReleased?.Invoke();
+
+            if (shouldReturn)
+            {
+                _startPosition = transform.position;
+                StartCoroutine(SmoothReturn());
+            }
+        }
+
+        private IEnumerator SmoothReturn()
+        {
+            float elapsed = 0;
+            float duration = 0.2f;
+            Vector3 currentPos = transform.position;
+
+            while (elapsed < duration)
+            {
+                transform.position = Vector3.Lerp(currentPos, _startPosition, elapsed / duration);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = _startPosition;
+        }
+
+        public void OnDontReturn()
+        {
+            shouldReturn = false;
         }
         
-        transform.position = _startPosition;
+        public void ForceReturn()
+        {
+            shouldReturn = true; 
+            StopAllCoroutines(); 
+            
+            if (Vector3.Distance(transform.position, _startPosition) > 0.01f)
+            {
+                StartCoroutine(SmoothReturn());
+            }
+        }
         
-        SwitchCollision(true);
-    }
-
-    private void SwitchCollision(bool flag)
-    {
-        if (_collider != null) _collider.enabled = flag;
-    }
-    
-    public void OnDontReturn()
-    {
-        shouldReturn = false;
+        public void MustReturn()
+        {
+            shouldReturn = true;
+        }
     }
 }

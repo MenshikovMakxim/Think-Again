@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+using Game.SO;
 
-
-public interface IMergeSystem
+namespace Game.Interfaces
 {
-    ItemSO TryGetMergeResult(string id1, string id2);
-    
-    void SpawnItem(ItemSO data, Vector2 position);
+    public interface IMergeSystem
+    {
+        RecipeSO TryGetRecipe(ItemType type1, ItemType type2);
+
+        ItemSO GetItemDataByType(ItemType type);
+
+        GameObject SpawnItem(ItemType resultType, Vector2 position);
+    }
 }

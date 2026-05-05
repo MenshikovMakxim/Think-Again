@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
   m_Name: i_wood
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  ID: wood
+  itemType: 2
   itemSprite: {fileID: 7482667652216324306, guid: 027dc0c7eac5643488a84416df754479, type: 3}
+  defaultScale: {x: 1, y: 1, z: 1}

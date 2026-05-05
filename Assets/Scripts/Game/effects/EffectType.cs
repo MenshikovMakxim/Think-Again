@@ -1,6 +1,9 @@
-public enum EffectType
+namespace Game.Effects
 {
-    CraftSmoke,     // Дим при злитті
-    ItemCreated,    // Блік появи
-    WinGlow,        // Світіння перемоги
+    public enum EffectType
+    {
+        CraftSmoke,     // Дим при злитті
+        ItemCreated,    // Блік появи
+        WinGlow,        // Світіння перемоги
+    }
 }
