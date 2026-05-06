@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
   m_Name: i_palm
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  ID: palm
+  itemType: 9
   itemSprite: {fileID: 3286163911610860551, guid: 6b45e029a047b254195e2cd0d4f18acf, type: 3}
+  defaultScale: {x: 0.7, y: 0.7, z: 1}

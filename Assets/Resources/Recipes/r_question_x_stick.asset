@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
   m_Name: r_question_x_stick
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  InputItem1: {fileID: 11400000, guid: fd8e0a8c312d5b54b8d115dca4c42876, type: 2}
-  InputItem2: {fileID: 11400000, guid: e1036d9752324134da0b889724be1ff1, type: 2}
-  ResultItem: {fileID: 11400000, guid: 2278cce54067e13418f12d696e18b28b, type: 2}
+  input1: 11
+  input2: 12
+  resultItem: 13
+  consumeInput1: 1
+  consumeInput2: 1

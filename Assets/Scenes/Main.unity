@@ -5374,6 +5374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelPrefabs:
+  - {fileID: 168183891957909291, guid: ce3eefc7ec9e3ba4988dc365efde7e90, type: 3}
   - {fileID: 6551587164936716056, guid: 41ca059fbe3486c41b548697cc7120a4, type: 3}
   levelHolder: {fileID: 97421537}
   craftingSystem: {fileID: 1546147872}

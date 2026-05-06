@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
   m_Name: r_banana_x_monkey
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  InputItem1: {fileID: 11400000, guid: 310660b00699e3b469902144c8c00dd9, type: 2}
-  InputItem2: {fileID: 11400000, guid: 8be8a1b5d1e290c4e85fc61f0cecfbae, type: 2}
-  ResultItem: {fileID: 11400000, guid: 341c20774812ec949bedec70de35367e, type: 2}
+  input1: 4
+  input2: 5
+  resultItem: 6
+  consumeInput1: 1
+  consumeInput2: 1
