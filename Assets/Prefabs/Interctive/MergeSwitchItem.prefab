@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7528139527295968469}
   - component: {fileID: 116757740331655279}
   m_Layer: 0
-  m_Name: Item_Monkey
+  m_Name: MergeSwitchItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,9 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchObject
   selfSwitch: 1
-  onSprite: {fileID: 3286163911610860551, guid: ccb101f4a190b3243a18df5b2c0a8ea2, type: 3}
-  offSprite: {fileID: 3286163911610860551, guid: b434bbe8b5238aa46b793132a599e8e6, type: 3}
-  itemDataToPass: {fileID: 11400000, guid: 8e621a84c86b83f49aa4da5fe375724f, type: 2}
+  onSprite: {fileID: 0}
+  offSprite: {fileID: 0}
+  itemDataToPass: {fileID: 0}
   objectsToToggle:
   - {fileID: 0}
 --- !u!114 &-7528139527295968469
@@ -203,5 +203,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29da519b33c945d195a77cd6a90d7264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
-  initialType: 5
+  initialType: 0
   resizeCollision: 2

@@ -1,5 +1,4 @@
-﻿
-namespace Game.SO
+﻿namespace Game.SO
 {
     public enum ItemType
     {
@@ -17,7 +16,17 @@ namespace Game.SO
         Question,
         Stick,
         Stick_hook,
-        Vase
+        Vase, 
+        Bb_sad,
+        Bb_eww,
+        Bb_like,
+        Bb_happy,
+        Jar,
+        Scoop,
+        Shaker_water,
+        Shaker_muddy,
+        Shaker_perfect,
+        Barbell
     }
 }
 
