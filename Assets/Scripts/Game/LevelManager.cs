@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
     
     public void LoadLevel(int index)
     {
-        
+        UIManager.Instance.HideBackground();
         UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
         
         _currentLevelIndex = index;
@@ -56,6 +56,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1f;
         _levelController.DestroyCurrentLevel();
         UIManager.Instance.OpenRootScreen(UIManager.Instance.mainMenuPanel);
+        UIManager.Instance.ShowBackground();
     }
     
     public void RestartLevel()
@@ -75,12 +76,30 @@ public class LevelManager : MonoBehaviour
         else
         {
             ExitToMenu();
-            
+        }
+    }
+    
+    private void CompleteLevel()
+    {
+        int nextLevel = _currentLevelIndex + 1;
+        int highestUnlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);
+    
+        if (nextLevel > highestUnlocked)
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", nextLevel);
+            PlayerPrefs.Save();
+            Debug.Log("Відкрито новий рівень: " + nextLevel);
         }
     }
 
     private void FinishLevelScreen(EventBus.ItemData itemData)
     {
+        CompleteLevel();
         UIManager.Instance.ShowResultPopup();
+    }
+
+    public bool IsLastLevel()
+    {
+        return _currentLevelIndex == CountLevels();
     }
 }

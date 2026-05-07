@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject pauseMenuPanel;
     public GameObject resultPanel;
     public GameObject hintPanel;
+    public GameObject backgroundPanel;
     
 
     private readonly Stack<GameObject> _historyStack = new Stack<GameObject>();
@@ -98,5 +99,15 @@ private void Start()
         resultPanel.SetActive(true);
         resultPanel.GetComponent<WinScreen>().PlayAnimation();
         Debug.LogWarning($"ResulPanelActive: {resultPanel.name}!");
+    }
+
+    public void ShowBackground()
+    {
+        backgroundPanel.SetActive(true);
+    }
+
+    public void HideBackground()
+    {
+        backgroundPanel.SetActive(false);
     }
 }

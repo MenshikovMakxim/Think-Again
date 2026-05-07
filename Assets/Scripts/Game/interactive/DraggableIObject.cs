@@ -47,7 +47,6 @@ namespace Game.Interactive
 
             if (shouldReturn)
             {
-                // transform.position = _startPosition;
                 StartCoroutine(SmoothReturn());
             }
         }
