@@ -142,7 +142,7 @@ CircleCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 11
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
   initialType: 0
+  resizeCollision: 2
 --- !u!114 &-6017874912475188698
 MonoBehaviour:
   m_ObjectHideFlags: 0

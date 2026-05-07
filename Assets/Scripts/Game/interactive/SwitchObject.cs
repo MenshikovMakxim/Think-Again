@@ -30,6 +30,18 @@ namespace Game.Interactive
         {
             _selfSpriteRenderer = GetComponent<SpriteRenderer>();
         }
+
+        private void Start()
+        {
+            if (_isOn)
+            {
+                _selfSpriteRenderer.sprite = onSprite;
+            }
+            else
+            {
+                _selfSpriteRenderer.sprite = offSprite;
+            }
+        }
         
         public void OnClick()
         {
@@ -48,7 +60,7 @@ namespace Game.Interactive
 
             if (itemDataToPass == null)
             {
-                Debug.LogError($"[SwitchObject] {gameObject.name} не призначено ItemSO!");
+                Debug.LogWarning($"[SwitchObject] {gameObject.name} не призначено ItemSO!");
                 return;
             }
 
