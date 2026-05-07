@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.SO
@@ -19,7 +20,38 @@ namespace Game.SO
         
         [Tooltip("Чи зникає другий предмет?")]
         public bool consumeInput2 = true;
-        
+
+        public void Awake()
+        {
+            if(consumeInput1 == false && consumeInput2 == false)
+            {
+                Debug.LogWarning($"Рецепт {name} неправильний, оскільки обидва предмети не зникають");
+            }
+        }
+
+        public bool OnValidRecipe()
+        {
+            if(consumeInput1 == false && consumeInput2 == false)
+            {
+                Debug.LogWarning($"Рецепт {name} неправильний, оскільки обидва предмети не зникають");
+                return false;
+            }
+            
+            if(input1 == ItemType.None || input2 == ItemType.None)
+            {
+                Debug.LogWarning($"Рецепт {name} неправильний, оскільки один з інгредієнтів не визначений");
+                return false;
+            }
+
+            if (resultItem == ItemType.None)
+            {
+                Debug.LogWarning($"Рецепт {name} неправильний, оскільки кінцевий результат не визначений");
+                return false;
+            }
+            
+            return true;
+        }
+
         public bool CanCraft(ItemType itemA, ItemType itemB)
         {
             if (itemA == ItemType.None || itemB == ItemType.None) return false;
@@ -35,13 +67,10 @@ namespace Game.SO
         /// </summary>
         public bool ShouldConsume(ItemType itemToCheck)
         {
-            // Якщо предмет збігається з input1, повертаємо правило для input1
             if (itemToCheck == input1) return consumeInput1;
             
-            // Якщо з input2 - повертаємо правило для input2
             if (itemToCheck == input2) return consumeInput2;
-
-            // Якщо предмет взагалі не з цього рецепту (підстраховка)
+            
             return false; 
         }
     }

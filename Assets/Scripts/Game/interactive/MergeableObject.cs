@@ -33,13 +33,13 @@ namespace Game.Interactive
 
         private void Start()
         {
-            if (_draggableComponent != null) _draggableComponent.MustReturn();
+            ActiveCollider(true);
         }
         
         public void ActiveCollider(bool flag)
         {
             if (_collider2D != null) _collider2D.enabled = flag;
-            if (_draggableComponent != null) _draggableComponent.OnDontReturn();
+            if (_draggableComponent != null) _draggableComponent.SetReturn(flag);
         }
 
         public void Construct(IMergeSystem mergeSystem)
@@ -230,8 +230,9 @@ namespace Game.Interactive
         {
             if (_draggableComponent != null)
             {
-                _draggableComponent.ForceReturn();
                 ActiveCollider(false);
+                _draggableComponent.ForceReturn();
+                ActiveCollider(true);
             }
             
             if (TryGetComponent(out MagnetComponent magnet) && _itemData != null)
