@@ -55,6 +55,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         _levelController.DestroyCurrentLevel();
+        UIManager.Instance.OpenRootScreen(UIManager.Instance.mainMenuPanel);
     }
     
     public void RestartLevel()
@@ -74,7 +75,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             ExitToMenu();
-            UIManager.Instance.OpenScreen(UIManager.Instance.levelSelectPanel);
+            
         }
     }
 

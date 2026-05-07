@@ -47,7 +47,7 @@ namespace Game.Interactive
 
             if (shouldReturn)
             {
-                _startPosition = transform.position;
+                // transform.position = _startPosition;
                 StartCoroutine(SmoothReturn());
             }
         }
@@ -67,11 +67,6 @@ namespace Game.Interactive
 
             transform.position = _startPosition;
         }
-
-        public void OnDontReturn()
-        {
-            shouldReturn = false;
-        }
         
         public void ForceReturn()
         {
@@ -84,9 +79,10 @@ namespace Game.Interactive
             }
         }
         
-        public void MustReturn()
+        public void SetReturn(bool value)
         {
-            shouldReturn = true;
+            shouldReturn = value;
         }
+        
     }
 }

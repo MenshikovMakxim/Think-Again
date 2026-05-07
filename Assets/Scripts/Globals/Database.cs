@@ -60,7 +60,7 @@ namespace Game.Systems
             
             foreach (var recipe in loadedRecipes)
             {
-                if (recipe == null || recipe.input1 == ItemType.None || recipe.input2 == ItemType.None || recipe.resultItem == ItemType.None) 
+                if (recipe == null || recipe.OnValidRecipe() == false) 
                     continue;
 
                 var key = BuildRecipeKey(recipe.input1, recipe.input2);
