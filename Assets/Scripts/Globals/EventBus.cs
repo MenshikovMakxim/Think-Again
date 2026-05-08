@@ -25,10 +25,12 @@ public static class EventBus
     }
     
     public static event Action<ItemData> OnLevelFinished;
+    public static event Action OnWinLevel;
     
     public static void RaiseLevelFinished(ItemData winObject)
     {
         OnLevelFinished?.Invoke(winObject);
+        OnWinLevel?.Invoke();
     }
     
     public static event Action<GameObject, int> OnLevelStarted;

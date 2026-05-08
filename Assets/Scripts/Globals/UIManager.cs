@@ -16,10 +16,8 @@ public class UIManager : MonoBehaviour
     public GameObject hintPanel;
     public GameObject backgroundPanel;
     
-
     private readonly Stack<GameObject> _historyStack = new Stack<GameObject>();
     private GameObject _currentScreen;
-    
     
     private void Awake()
     {
@@ -33,8 +31,18 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    private void OnEnable()
+    {
+        EventBus.OnWinLevel += ShowResultPopup;
+    }
 
-private void Start()
+    private void OnDisable()
+    {
+        EventBus.OnWinLevel -= ShowResultPopup;
+    }
+
+    private void Start()
     {
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
@@ -94,20 +102,22 @@ private void Start()
         popup.SetActive(false);
     }
 
-    public void ShowResultPopup()
+    private void ShowResultPopup()
     {
-        resultPanel.SetActive(true);
-        resultPanel.GetComponent<WinScreen>().PlayAnimation();
-        Debug.LogWarning($"ResulPanelActive: {resultPanel.name}!");
+        ShowPopup(resultPanel);
     }
-
-    public void ShowBackground()
+    
+    public void ActiveHub(bool flag)
     {
-        backgroundPanel.SetActive(true);
-    }
-
-    public void HideBackground()
-    {
-        backgroundPanel.SetActive(false);
+        if (flag)
+        {
+            OpenRootScreen(gameHudPanel);
+            backgroundPanel.SetActive(false);
+        }
+        else
+        {
+            OpenRootScreen(mainMenuPanel);
+            backgroundPanel.SetActive(true);
+        }
     }
 }

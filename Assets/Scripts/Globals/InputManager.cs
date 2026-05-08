@@ -5,7 +5,14 @@ using Game.Interfaces;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField] private GameObject gameCursor;
     private IDraggable _currentDraggedObject;
+    private UICursor _uiCursor;
+
+    private void Awake()
+    {
+        _uiCursor = gameCursor.GetComponent<UICursor>();
+    }
 
     void Update()
     {
@@ -46,6 +53,8 @@ public class InputManager : MonoBehaviour
                 {
                     _currentDraggedObject = draggable;
                     _currentDraggedObject.OnBeginDrag(worldPosition);
+                    _uiCursor.ActiveHolding(true);
+                    
                 }
                 else
                 {
@@ -76,6 +85,7 @@ public class InputManager : MonoBehaviour
             if (_currentDraggedObject as MonoBehaviour != null)
             {
                 _currentDraggedObject.OnEndDrag();
+                _uiCursor.ActiveHolding(false);
             }
             
             _currentDraggedObject = null; 

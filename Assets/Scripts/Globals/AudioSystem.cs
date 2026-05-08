@@ -35,7 +35,7 @@ public class AudioSystem : MonoBehaviour
     [Tooltip("Максимальний тон")]
     [SerializeField] private float maxPitch = 1.1f;
 
-    private Dictionary<SoundType, AudioClip> _soundDatabase = new Dictionary<SoundType, AudioClip>();
+    private readonly Dictionary<SoundType, AudioClip> _soundDatabase = new Dictionary<SoundType, AudioClip>();
 
     private void Start()
     {
@@ -50,7 +50,6 @@ public class AudioSystem : MonoBehaviour
 
     private void Awake()
     {
-        // Пакуємо масив у словник для швидкого пошуку
         foreach (var entry in soundEntries)
         {
             if (!_soundDatabase.ContainsKey(entry.Type) && entry.Clip != null)
@@ -106,7 +105,6 @@ public class AudioSystem : MonoBehaviour
 
     private void HandleItemCrafted(EventBus.ItemData data)
     {
-        // Граємо звук успішного крафту!
         PlaySFX(SoundType.CraftSuccess);
     }
 

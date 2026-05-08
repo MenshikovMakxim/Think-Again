@@ -1,52 +1,71 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GlobalCursorManager : MonoBehaviour
+public class UICursor : MonoBehaviour
 {
     [Header("Курсори")]
-    public Texture2D defaultCursor; // Звичайна стрілочка
-    public Texture2D dragCursor;    // Курсор для перетягування (наприклад, кулак)
-    public Texture2D clickCursor;   // Опціонально: курсор при самому кліку
+    public Texture2D defaultCursor; 
+    public Texture2D dragCursor;    
+    public Texture2D clickCursor;   
 
     [Header("Налаштування")]
-    public float holdThreshold = 0.2f; // Скільки секунд тримати, щоб вважалося "перетягуванням"
-    public Vector2 hotSpot = Vector2.zero; // Центр кліку курсора
-
-    private float pressTime;
-    private bool isHolding = false;
+    public Vector2 hotSpot = Vector2.zero; 
+    
+    private float _clickTimer = 0f;
+    private readonly float _clickVisualDuration = 0.05f;
+    
+    private bool _isHolding = false;
 
     void Start()
     {
         Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
     }
-
+    
     void Update()
     {
         if (Mouse.current == null) return;
 
         var leftBtn = Mouse.current.leftButton;
-        
-        if (leftBtn.wasPressedThisFrame)
-        {
-            pressTime = Time.time;
-            isHolding = false;
-            
-            Cursor.SetCursor(clickCursor != null ? clickCursor : defaultCursor, hotSpot, CursorMode.Auto);
-        }
-
-        if (leftBtn.isPressed)
-        {
-            if (!isHolding && (Time.time - pressTime > holdThreshold))
-            {
-                isHolding = true;
-                Cursor.SetCursor(dragCursor, hotSpot, CursorMode.Auto);
-            }
-        }
-        
+    
         if (leftBtn.wasReleasedThisFrame)
         {
+            _isHolding = false;
+            _clickTimer = 0f;
             Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
-            isHolding = false;
+            return; 
+        }
+
+        if (leftBtn.wasPressedThisFrame)
+        {
+            Cursor.SetCursor(clickCursor != null ? clickCursor : defaultCursor, hotSpot, CursorMode.Auto);
+            _clickTimer = _clickVisualDuration;
+        }
+        else if (leftBtn.isPressed)
+        {
+            if (_isHolding)
+            {
+                Cursor.SetCursor(dragCursor, hotSpot, CursorMode.Auto);
+                _clickTimer = 0f; 
+            }
+            else if (_clickTimer > 0f) 
+            {
+                _clickTimer -= Time.deltaTime;
+            
+                if (_clickTimer <= 0f)
+                {
+                    Cursor.SetCursor(defaultCursor, hotSpot, CursorMode.Auto);
+                }
+            }
+        }
+    }
+
+    public void ActiveHolding(bool flag)
+    {
+        _isHolding = flag;
+        
+        if (_isHolding && Mouse.current != null && Mouse.current.leftButton.isPressed)
+        {
+            Cursor.SetCursor(dragCursor, hotSpot, CursorMode.Auto);
         }
     }
 }

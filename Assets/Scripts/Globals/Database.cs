@@ -14,6 +14,16 @@ namespace Game.Systems
             InitializeItems();
             InitializeRecipes();
         }
+        
+        private void OnEnable()
+        {
+            EventBus.OnLevelStarted += SaveLevel;
+        }
+        
+        private void OnDisable()
+        {
+            EventBus.OnLevelStarted -= SaveLevel;
+        }
 
         #region Ініціалізація
 
@@ -49,7 +59,6 @@ namespace Game.Systems
         {
             _recipeDatabase = new Dictionary<(ItemType, ItemType), RecipeSO>();
             
-            // Завантажуємо з папки Resources/Recipes
             RecipeSO[] loadedRecipes = Resources.LoadAll<RecipeSO>("Recipes");
 
             if (loadedRecipes.Length == 0)
@@ -108,7 +117,19 @@ namespace Game.Systems
             Debug.LogError($"[Database] Предмет типу {type} не знайдено!");
             return null;
         }
-
+        
         #endregion
+
+        private void SaveLevel(GameObject winObject, int index)
+        {
+            int nextLevel = index + 1;
+            int highestUnlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);
+    
+            if (nextLevel > highestUnlocked)
+            {
+                PlayerPrefs.SetInt("UnlockedLevel", nextLevel);
+                PlayerPrefs.Save();
+            }
+        }
     }
 }

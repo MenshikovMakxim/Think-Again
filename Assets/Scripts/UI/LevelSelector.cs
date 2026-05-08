@@ -10,7 +10,7 @@ public class LevelSelector : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private LevelManager levelManager;
     
-    private List<LevelButton> _spawnedButtons = new List<LevelButton>();
+    private readonly List<LevelButton> _spawnedButtons = new List<LevelButton>();
     
     private void Awake()
     {
@@ -18,7 +18,6 @@ public class LevelSelector : MonoBehaviour
     } 
     private void OnEnable()
     {
-        Debug.Log("LevelSelector enabled, refreshing buttons state.");
         RefreshButtonsState();
     }
     private void GenerateLevelButtons()
