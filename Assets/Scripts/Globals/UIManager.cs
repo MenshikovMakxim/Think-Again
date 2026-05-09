@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class UIManager : MonoBehaviour
     
     private readonly Stack<GameObject> _historyStack = new Stack<GameObject>();
     private GameObject _currentScreen;
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -109,15 +110,24 @@ public class UIManager : MonoBehaviour
     
     public void ActiveHub(bool flag)
     {
+        HudController hudController = gameHudPanel.GetComponent<HudController>();
+        
         if (flag)
         {
-            OpenRootScreen(gameHudPanel);
             backgroundPanel.SetActive(false);
+            
+            if (!gameHudPanel.activeSelf)
+            {
+                OpenRootScreen(gameHudPanel);
+            }
+            
+            hudController.Show();
         }
         else
         {
-            OpenRootScreen(mainMenuPanel);
             backgroundPanel.SetActive(true);
+            
+            hudController.Hide(() => { OpenRootScreen(mainMenuPanel); });
         }
     }
 }

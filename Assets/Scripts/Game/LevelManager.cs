@@ -54,6 +54,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         Time.timeScale = 1f;
+        UIManager.Instance.ActiveHub(true);
         
         if (_currentLevelIndex < CountLevels())
         {
