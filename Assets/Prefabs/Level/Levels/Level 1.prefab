@@ -491,6 +491,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2259675210009344032}
     m_Modifications:
+    - target: {fileID: 116757740331655279, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: initialType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1316050631535910239, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: onSprite
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: ccb101f4a190b3243a18df5b2c0a8ea2, type: 3}
+    - target: {fileID: 1316050631535910239, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: offSprite
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: b434bbe8b5238aa46b793132a599e8e6, type: 3}
+    - target: {fileID: 1316050631535910239, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: itemDataToPass
+      value: 
+      objectReference: {fileID: 11400000, guid: 8e621a84c86b83f49aa4da5fe375724f, type: 2}
     - target: {fileID: 1316050631535910239, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
       propertyPath: 'objectsToToggle.Array.data[0]'
       value: 

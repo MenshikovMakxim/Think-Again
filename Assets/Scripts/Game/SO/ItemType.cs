@@ -16,17 +16,13 @@
         Question,
         Stick,
         Stick_hook,
-        Vase, 
-        Bb_sad,
-        Bb_eww,
-        Bb_like,
-        Bb_happy,
-        Jar,
-        Scoop,
-        Shaker_water,
-        Shaker_muddy,
-        Shaker_perfect,
-        Barbell
+        Vase,
+        mug_ka,
+        mug_va,
+        mug_kava,
+        one,
+        three,
+        four
     }
 }
 
