@@ -9,19 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject craftingSystem;
     
     private int _currentLevelIndex;
-    private LevelData _currentLevelData;
     private LevelController _levelController;
     
-    public void OnEnable()
-    {
-        EventBus.OnLevelFinished += FinishLevelScreen;
-    }
-    
-    public void OnDisable()
-    {
-        EventBus.OnLevelFinished -= FinishLevelScreen;
-    }
-
     private void Awake()
     {
         _levelController = levelHolder.GetComponent<LevelController>();
@@ -32,13 +21,11 @@ public class LevelManager : MonoBehaviour
     
     public void LoadLevel(int index)
     {
-        
-        UIManager.Instance.OpenScreen(UIManager.Instance.gameHudPanel);
+        UIManager.Instance.ActiveHub(true);
         
         _currentLevelIndex = index;
         GameObject prefabToSpawn = levelPrefabs[_currentLevelIndex - 1];
         _levelController.SpawnLevel(prefabToSpawn, _currentLevelIndex);
-        
     }
     
     public void PauseGame()
@@ -55,7 +42,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         _levelController.DestroyCurrentLevel();
-        UIManager.Instance.OpenRootScreen(UIManager.Instance.mainMenuPanel);
+        UIManager.Instance.ActiveHub(false);
     }
     
     public void RestartLevel()
@@ -67,20 +54,16 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         Time.timeScale = 1f;
+        UIManager.Instance.ActiveHub(true);
         
         if (_currentLevelIndex < CountLevels())
         {
             LoadLevel(_currentLevelIndex+1);
         }
-        else
-        {
-            ExitToMenu();
-            
-        }
     }
-
-    private void FinishLevelScreen(EventBus.ItemData itemData)
+    
+    public bool IsLastLevel()
     {
-        UIManager.Instance.ShowResultPopup();
+        return _currentLevelIndex == CountLevels();
     }
 }

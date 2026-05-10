@@ -60,20 +60,21 @@ namespace Game.Interactive
         {
             if (otherCollider.gameObject.TryGetComponent(out IMergeable otherItem))
             {
-                MergeWith(otherItem);
+                if (_mergeSystem != null)
+                {
+                    _mergeSystem.TryMerge(this, otherItem);
+                }
             }
-        } 
-
-        private bool IsMoving()
-        {
-            if (_draggableComponent != null)
-            {
-                return _draggableComponent.IsDragged;
-            }
-
-            return false;
         }
         
+        public int GetID()
+        {
+            return gameObject.GetInstanceID();
+        }
+        public float GetDistanceToHome()
+        {
+            return Vector3.Distance(transform.position, GetStartPosition());
+        }
         public ItemSO GetItemData()
         {
             return _itemData;
@@ -115,118 +116,93 @@ namespace Game.Interactive
             Destroy(gameObject);
         }
         
-        private RecipeSO TryCreateItem(IMergeable otherItem)
+        public void MergeTo(IMergeable target, RecipeSO recipe)
         {
-            if (_mergeSystem == null) return null;
-            
-            ItemType myType = GetItemType();
-            ItemType otherType = otherItem.GetItemType();
-            
-            return _mergeSystem.TryGetRecipe(myType, otherType);
-        }
+            bool amIMoving = GetDistanceToHome() >= target.GetDistanceToHome();
 
-        private void MergeWith(IMergeable otherItem)
-        {
-            
-            RecipeSO recipe = TryCreateItem(otherItem);
-            
-            if (recipe != null)
+            IMergeable movingItem = amIMoving ? this : target;
+            IMergeable stationaryItem = amIMoving ? target : this;
+
+            void Craft()
             {
-                otherItem.ActiveCollider(false);
-                ActiveCollider(false);
-                
-                if (gameObject.GetInstanceID() > ((MonoBehaviour)otherItem).gameObject.GetInstanceID())
-                {
-                    OnEnableMagnet(otherItem, recipe);
-                }
+                ExecuteCraft(target, recipe, stationaryItem.Transform.position);
             }
+
+            if (((MonoBehaviour)movingItem).TryGetComponent(out MagnetComponent magnet))
+            {
+                magnet.MagnetizeTo(stationaryItem.Transform, Craft);
+                return;
+            }
+
+            Craft();
         }
         
-        private void OnEnableMagnet(IMergeable target, RecipeSO recipe)
-        {
-            float myDistToHome = Vector3.Distance(transform.position, GetStartPosition());
-            float targetDistToHome = 0f;
-            
-            if (target is MergeableItem targetItem)
-            {
-                targetDistToHome = Vector3.Distance(targetItem.transform.position, targetItem.GetStartPosition());
-            }
-            
-            bool amIMoving = myDistToHome >= targetDistToHome;
-
-            MonoBehaviour movingObj = amIMoving ? this : (MonoBehaviour)target;
-            MonoBehaviour stationaryObj = amIMoving ? (MonoBehaviour)target : this;
-
-
-            if (movingObj.TryGetComponent(out MagnetComponent magnet))
-            {
-                magnet.MagnetizeTo(stationaryObj.transform, () =>
-                {
-                    Vector2 spawnPos = stationaryObj.transform.position;
-                    ExecuteCraft(target, recipe, spawnPos);
-                });
-            }
-            else
-            {
-                Vector2 spawnPos = (transform.position + ((MonoBehaviour)target).transform.position) / 2f;
-                ExecuteCraft(target, recipe, spawnPos);
-            }
-        }
         private void ExecuteCraft(IMergeable target, RecipeSO recipe, Vector2 spawnPos)
         {
             bool amIConsumed = recipe.ShouldConsume(this.GetItemType());
             bool isTargetConsumed = recipe.ShouldConsume(target.GetItemType());
 
-            Vector3 resultDestination = spawnPos; 
+            Vector3 resultDestination = CalculateResultDestination(target, amIConsumed, isTargetConsumed, spawnPos);
 
-            if (amIConsumed && !isTargetConsumed)
-            {
-                resultDestination = this.GetStartPosition(); 
-            }
-            
-            else if (!amIConsumed && isTargetConsumed)
-            {
-                if (target is MergeableItem targetItem)
-                {
-                    resultDestination = targetItem.GetStartPosition(); 
-                }
-            }
-            
             if (recipe.resultItem != ItemType.None)
             {
-                GameObject newResult = _mergeSystem.SpawnItem(recipe.resultItem, spawnPos);
-                
-                if (newResult != null)
-                {
-                    Collider2D col = newResult.GetComponent<Collider2D>();
-                    if (col != null) col.enabled = false;
-                    
-                    if (Vector3.Distance(newResult.transform.position, resultDestination) > 0.05f)
-                    {
-                        newResult.transform.DOMove(resultDestination, 0.25f)
-                            .SetEase(Ease.OutQuad)
-                            .OnComplete(() => 
-                            {
-                                if (col != null) col.enabled = true;
-                                if (newResult.TryGetComponent(out DraggableItem drag)) drag.SetStartPosition(resultDestination);
-                            });
-                    }
-                    else 
-                    {
-                        if (col != null) col.enabled = true;
-                        if (newResult.TryGetComponent(out DraggableItem drag)) drag.SetStartPosition(resultDestination);
-                    }
-                }
+                SpawnAndAnimateResult(recipe.resultItem, spawnPos, resultDestination);
             }
+
+            ResolveItemsLifecycle(target, amIConsumed, isTargetConsumed);
+        }
+        
+        private Vector3 CalculateResultDestination(IMergeable target, bool amIConsumed, bool isTargetConsumed, Vector2 defaultPos)
+        {
+            if (amIConsumed && !isTargetConsumed)
+            {
+                return this.GetStartPosition();
+            }
+    
+            if (!amIConsumed && isTargetConsumed && target is MergeableItem targetItem)
+            {
+                return targetItem.GetStartPosition(); 
+            }
+
+            return defaultPos;
+        }
+        
+        private void SpawnAndAnimateResult(ItemType resultType, Vector2 spawnPos, Vector3 destination)
+        {
+            GameObject newResult = _mergeSystem.SpawnItem(resultType, spawnPos);
+            if (newResult == null) return;
+        
+            Collider2D col = newResult.GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
             
+            void FinalizeSetup()
+            {
+                if (col != null) col.enabled = true;
+                if (newResult.TryGetComponent(out DraggableItem drag)) drag.SetStartPosition(destination);
+            }
+        
+            if (Vector3.Distance(newResult.transform.position, destination) > 0.05f)
+            {
+                newResult.transform.DOMove(destination, 0.25f)
+                    .SetEase(Ease.OutQuad)
+                    .OnComplete(FinalizeSetup);
+            }
+            else 
+            {
+                FinalizeSetup();
+            }
+        }
+        
+        private void ResolveItemsLifecycle(IMergeable target, bool amIConsumed, bool isTargetConsumed)
+        {
             if (amIConsumed) this.DestroyItem();
             else this.RestoreAfterCraft(); 
-            
+    
             if (isTargetConsumed) target.DestroyItem();
             else if (target is MergeableItem otherItem) otherItem.RestoreAfterCraft();
         }
         
-        private void RestoreAfterCraft()
+        public void RestoreAfterCraft()
         {
             if (_draggableComponent != null)
             {

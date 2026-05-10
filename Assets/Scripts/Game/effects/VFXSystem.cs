@@ -33,7 +33,6 @@ public class VFXSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        // Підписуємося на івенти які передають дані
         EventBus.OnItemCrafted += HandleItemCrafted;
         EventBus.OnLevelFinished += HandleLevelFinished;
     }
@@ -77,13 +76,7 @@ public class VFXSystem : MonoBehaviour
         Transform actualParent = parent != null ? parent : vfxContainer;
         
         GameObject effectInstance = Instantiate(prefab, position, Quaternion.identity, actualParent);
-
-        // Якщо це Fire & Forget ефект без прив'язки, даємо йому команду самознищитись (або повернутися в пул)
-        // if (parent == null)
-        // {
-        //     Destroy(effectInstance, 2f); // Заглушка. Краще налаштувати автознищення в самій ParticleSystem (Stop Action -> Destroy)
-        // }
-
+        
         return effectInstance;
     }
 }

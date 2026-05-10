@@ -24,19 +24,41 @@ public class CraftingManager : MonoBehaviour, IMergeSystem
         EventBus.OnLevelStarted -= GetCurrentLevel;
     }
     
-    // ==========================================
-    // API ДЛЯ ПРЕДМЕТІВ (Просто делегуємо в Базу)
-    // ==========================================
-
-    public RecipeSO TryGetRecipe(ItemType type1, ItemType type2)
+    // public RecipeSO TryGetRecipe(ItemType type1, ItemType type2)
+    // {
+    //     if (database == null) 
+    //     {
+    //         Debug.LogError("[CraftingManager] Базу даних не підключено в Інспекторі!");
+    //         return null;
+    //     }
+    //     
+    //     return database.GetRecipe(type1, type2);
+    // }
+    
+    public RecipeSO TryGetRecipe(IMergeable item1, IMergeable item2)
     {
         if (database == null) 
         {
-            Debug.LogError("[CraftingManager] Базу даних не підключено в Інспекторі!");
             return null;
         }
         
-        return database.GetRecipe(type1, type2);
+        return database.GetRecipe(item1.GetItemType(), item2.GetItemType());
+    }
+
+    public void TryMerge(IMergeable item1, IMergeable item2)
+    {
+        RecipeSO recipe = TryGetRecipe(item1, item2);
+            
+        if (recipe != null)
+        {
+            item1.ActiveCollider(false);
+            item2.ActiveCollider(false);
+
+            if (item1.GetID() > item2.GetID())
+            {
+                item1.MergeTo(item2, recipe);
+            }
+        }
     }
 
     public ItemSO GetItemDataByType(ItemType type)
@@ -45,10 +67,6 @@ public class CraftingManager : MonoBehaviour, IMergeSystem
         
         return database.GetItemData(type);
     }
-    
-    // ==========================================
-    // ЛОГІКА СПАВНУ ТА КРАФТУ
-    // ==========================================
     
     public GameObject SpawnItem(ItemType resultType, Vector2 position)
     {

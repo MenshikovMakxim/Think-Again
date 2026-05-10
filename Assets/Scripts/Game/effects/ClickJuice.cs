@@ -27,9 +27,7 @@ namespace Game.Effects
         public void OnClick()
         {
             if (!_isInitialized) return;
-
             PlaySquishAnimation();
-            PlayParticleEffect();
         }
 
         private void PlaySquishAnimation()
@@ -42,13 +40,6 @@ namespace Game.Effects
                 .SetEase(Ease.OutQuad)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetLink(gameObject);
-        }
-
-        private void PlayParticleEffect()
-        {
-            // Якщо ти вже налаштував VFXSystem, можна просто викликати ефект пилку/зірочок!
-            // Наприклад, кинути івент:
-            // GameEvents.RaiseEffectRequested(clickEffectType, transform.position);
         }
     }
 }
