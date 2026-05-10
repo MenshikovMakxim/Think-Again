@@ -16,5 +16,15 @@ namespace Game.Interfaces
         void ActiveCollider(bool flag);
         
         void DestroyItem();
+        
+        int GetID();
+        
+        void MergeTo(IMergeable target,  RecipeSO recipe);
+        
+        Vector3 GetStartPosition();
+
+        float GetDistanceToHome();
+
+        void RestoreAfterCraft();
     }
 }

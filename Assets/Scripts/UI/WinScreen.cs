@@ -26,10 +26,11 @@ public class WinScreen : MonoBehaviour
         InitializeIfNeeded();
         ResetWindowContent(); 
     }
-
+    
     private void OnEnable()
     {
         SetupPopup();
+        PlayAnimation();
     }
 
     private void InitializeIfNeeded()
