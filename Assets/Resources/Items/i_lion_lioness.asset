@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
-  m_Name: r_jar_x_shakewater
-  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  input1: 19
-  input2: 21
-  resultItem: 23
-  consumeInput1: 1
-  consumeInput2: 1
+  m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
+  m_Name: i_lion_lioness
+  m_EditorClassIdentifier: Assembly-CSharp::Game.SO.ItemSO
+  itemType: 0
+  itemSprite: {fileID: 0}
+  defaultScale: {x: 0.7, y: 0.7, z: 0.7}

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
-  m_Name: r_barbell_x_bblike
-  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  input1: 24
-  input2: 17
-  resultItem: 18
+  m_Name: r_lion_x_lioness
+  m_EditorClassIdentifier: Assembly-CSharp::Game.SO.RecipeSO
+  input1: 21
+  input2: 22
+  resultItem: 23
   consumeInput1: 1
   consumeInput2: 1

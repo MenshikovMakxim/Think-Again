@@ -22,7 +22,9 @@
         mug_kava,
         one,
         three,
-        four
+        four,
+        lion,
+        lioness
     }
 }
 

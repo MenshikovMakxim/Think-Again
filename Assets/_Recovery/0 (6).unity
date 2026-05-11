@@ -5814,7 +5814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1408706382
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -11163,15 +11163,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelPrefabs:
+  - {fileID: 475152509401673766, guid: 28c96416562e66a4ab17adf3bf241583, type: 3}
+  - {fileID: 1970038348289083848, guid: 388b4262da850e0418a7b4543594bbf7, type: 3}
+  - {fileID: 8435452218335132668, guid: 829f3738c43d5e041b3ac92110067b7f, type: 3}
+  - {fileID: 8498704068274957037, guid: 3478e9209f3d9e34bae5ffab84310e93, type: 3}
   - {fileID: 168183891957909291, guid: ce3eefc7ec9e3ba4988dc365efde7e90, type: 3}
   - {fileID: 4233295682827231385, guid: e63fcaca4621ce045800d399a400b418, type: 3}
   - {fileID: 1028240612423646437, guid: e341404727b5ac0468de05f1b4bd8175, type: 3}
   - {fileID: 5930409020132342919, guid: af7abda0b86374340b1beb2fde61ee70, type: 3}
   - {fileID: 8909623731079912745, guid: 77b0446b150f7d54badc57cc461c6357, type: 3}
-  - {fileID: 8498704068274957037, guid: 3478e9209f3d9e34bae5ffab84310e93, type: 3}
-  - {fileID: 8435452218335132668, guid: 829f3738c43d5e041b3ac92110067b7f, type: 3}
-  - {fileID: 1970038348289083848, guid: 388b4262da850e0418a7b4543594bbf7, type: 3}
-  - {fileID: 475152509401673766, guid: 28c96416562e66a4ab17adf3bf241583, type: 3}
   levelHolder: {fileID: 97421537}
   craftingSystem: {fileID: 1546147872}
 --- !u!4 &1620427716
