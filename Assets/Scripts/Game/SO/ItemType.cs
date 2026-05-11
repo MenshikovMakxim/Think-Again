@@ -24,7 +24,11 @@
         three,
         four,
         lion,
-        lioness
+        lioness,
+        lion_lioness,
+        vason,
+        vason_none,
+        vason_lock
     }
 }
 

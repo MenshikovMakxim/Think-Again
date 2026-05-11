@@ -990,16 +990,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5514515065729735859, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.29980597
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5514515065729735859, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.29411763
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_Size.x
+      value: 15.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_Size.y
+      value: 10.07
       objectReference: {fileID: 0}
     - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7142115611179647124, guid: bed7f277e357f5f4583cf3bf3fd9dd3b, type: 3}
+      objectReference: {fileID: 7445829497641982615, guid: 6a6bea1f1228a85459798bebe0151d9e, type: 3}
     - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_Color.a
       value: 0.9137255
@@ -1015,6 +1023,10 @@ PrefabInstance:
     - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_Color.r
       value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

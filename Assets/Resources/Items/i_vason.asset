@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
-  m_Name: i_lion_lioness
+  m_Name: i_vason
   m_EditorClassIdentifier: Assembly-CSharp::Game.SO.ItemSO
-  itemType: 23
-  itemSprite: {fileID: 3286163911610860551, guid: 6157cd806e991d24c93c128320cc0b44, type: 3}
-  defaultScale: {x: 0.86, y: 0.85, z: 0.85}
+  itemType: 24
+  itemSprite: {fileID: 3286163911610860551, guid: 1dab7ce30eeb6b244a99f842d4f7bc87, type: 3}
+  defaultScale: {x: 0.8, y: 0.8, z: 0.8}

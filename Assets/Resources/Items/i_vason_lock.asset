@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a186b7346d5d2af46a05c9c468778f1b, type: 3}
-  m_Name: i_saw
-  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemType: 24
-  itemSprite: {fileID: 3286163911610860551, guid: 8bb18c359fa905648b5b8a7668895306, type: 3}
-  defaultScale: {x: 1, y: 1, z: 1}
+  m_Name: i_vason_lock
+  m_EditorClassIdentifier: Assembly-CSharp::Game.SO.ItemSO
+  itemType: 26
+  itemSprite: {fileID: 3286163911610860551, guid: 3e479cd328d1b4643a98902e07cb6cdf, type: 3}
+  defaultScale: {x: 0.8, y: 0.8, z: 0.8}
