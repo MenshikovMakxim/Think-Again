@@ -1,3 +1,4 @@
+using Game.Effects;
 using UnityEngine;
 using Game.Interfaces;
 using Game.SO;
@@ -22,6 +23,9 @@ namespace Game.Interactive
 
         [Header("Кому ми це передаємо (Піддослідні)")] [Tooltip("Об'єкти, які отримають новий ItemSO")] [SerializeField]
         private GameObject[] objectsToToggle;
+        
+        [Tooltip("стати рухомим об`єктом")]
+        [SerializeField] private bool makeDraggable = false;
 
         private SpriteRenderer _selfSpriteRenderer;
         private bool _isOn = false;
@@ -47,6 +51,11 @@ namespace Game.Interactive
         {
             EventBus.RaiseObjectClicked();
             ToggleSwitch();
+            
+            if (makeDraggable)
+            {
+                MakeDraggable();
+            }
         }
 
         private void ToggleSwitch()
@@ -76,6 +85,25 @@ namespace Game.Interactive
                 {
                     Debug.LogWarning($"[SwitchObject] {obj.name} немає скрипта MergeItem!");
                 }
+            }
+        }
+
+        private void MakeDraggable()
+        {
+            if (!TryGetComponent(out DraggableItem _)) gameObject.AddComponent<DraggableItem>();
+            if (!TryGetComponent(out DraggableVisuals _)) gameObject.AddComponent<DraggableVisuals>();
+
+            IClickable[] clickables = GetComponents<IClickable>();
+
+            foreach (IClickable clickable in clickables)
+            {
+                MonoBehaviour mb = clickable as MonoBehaviour;
+
+                if (mb == null) continue;
+
+                if (mb == this) continue;
+
+                mb.enabled = false;
             }
         }
     }
