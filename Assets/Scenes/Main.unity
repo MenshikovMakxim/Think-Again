@@ -11869,7 +11869,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6123595868410684655, guid: d98bbaba6b7a99b4c8308b766d7a68bc, type: 3}
       propertyPath: m_text
-      value: Stas
+      value: Riabokon Stanislav
       objectReference: {fileID: 0}
     - target: {fileID: 7320541230337335126, guid: d98bbaba6b7a99b4c8308b766d7a68bc, type: 3}
       propertyPath: m_Name
