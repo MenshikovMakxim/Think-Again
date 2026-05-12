@@ -992,6 +992,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: hintText
+      value: It seems that this massive chest is not just standing there and blocking
+        something.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: objectiveDescription
+      value: Find the hidden treasure in this attic
+      objectReference: {fileID: 0}
     - target: {fileID: 5514515065729735859, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.47846892

@@ -11172,6 +11172,7 @@ MonoBehaviour:
   - {fileID: 8435452218335132668, guid: 829f3738c43d5e041b3ac92110067b7f, type: 3}
   - {fileID: 1970038348289083848, guid: 388b4262da850e0418a7b4543594bbf7, type: 3}
   - {fileID: 475152509401673766, guid: 28c96416562e66a4ab17adf3bf241583, type: 3}
+  - {fileID: 2379129314386372772, guid: dc63a20c8b3fe0742b5d6015187d41a3, type: 3}
   levelHolder: {fileID: 97421537}
   craftingSystem: {fileID: 1546147872}
 --- !u!4 &1620427716

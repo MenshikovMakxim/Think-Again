@@ -92,6 +92,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: hintText
+      value: Tools are needed to solve a problem. But what if the problem doesn't
+        actually exist?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636739793587002955, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: objectiveDescription
+      value: Save the poor fish!!!
+      objectReference: {fileID: 0}
     - target: {fileID: 5514515065729735859, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
