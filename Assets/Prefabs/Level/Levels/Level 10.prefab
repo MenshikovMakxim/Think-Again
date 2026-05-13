@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_Name
       value: DraggableItem (4)
@@ -779,6 +783,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9685534
       objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6333793833241075271, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
@@ -893,6 +901,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_Name
       value: DraggableItem
@@ -983,6 +995,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: 763e8e8ab8732584b984008906b81993, type: 3}
+    - target: {fileID: 8444821355631022583, guid: 70d59f8499e0d484ab2037af939dec44, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1069,6 +1085,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_Name
       value: DraggableItem (5)
@@ -1151,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: 5edf35c2c9d4ed142a8ad55c02f611d1, type: 3}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_Name
       value: DraggableItem (3)
@@ -1239,6 +1263,10 @@ PrefabInstance:
       objectReference: {fileID: 3286163911610860551, guid: b8d07ac4744c6d444944b4a5b3543d61, type: 3}
     - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
@@ -1442,6 +1470,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: ace1aa7091ef40b4ea44e69fa7ca127e, type: 3}
+    - target: {fileID: 2883892975173044061, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
       propertyPath: m_Name
       value: SwitchItem

@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
       propertyPath: m_Name
       value: Item_lion
@@ -179,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
       propertyPath: m_Name
       value: SwitchItem (3)
@@ -265,6 +273,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
       propertyPath: m_Name
       value: SwitchItem (4)
@@ -972,6 +984,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9748427
       objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6333793833241075271, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
@@ -1076,6 +1092,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
       propertyPath: m_Name
       value: SwitchItem (2)
@@ -1171,6 +1191,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: f2c9d4485c7e9d749a1c922becfb7330, type: 3}
       propertyPath: m_Name
       value: Item_lioness
@@ -1266,6 +1290,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: fa2b9a5dbf4712d48a771616162bec42, type: 3}
+    - target: {fileID: 2883892975173044061, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: a65aa776df4b56d4cadb42100330fed7, type: 3}
       propertyPath: m_Name
       value: SwitchItem (1)
