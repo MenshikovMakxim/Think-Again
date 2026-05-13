@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -5516132718282127899, guid: ebbcbe4752464df4188e0691e2e0bc5c, type: 3}
+    - target: {fileID: 2883892975173044061, guid: daaf2f0a545a7554f9e4dc3db2121e4c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: daaf2f0a545a7554f9e4dc3db2121e4c, type: 3}
       propertyPath: m_Name
       value: EmptyItem
@@ -150,6 +154,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: ef92b611f9999cf4999d1f2e9b7e6cf9, type: 3}
+    - target: {fileID: 2883892975173044061, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: b6b293f6a9e686042b96dfa30c7a9367, type: 3}
       propertyPath: m_Name
       value: DraggableItem
@@ -240,6 +248,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: d3e01597e8bd6434e9ceb060099f2373, type: 3}
+    - target: {fileID: 8444821355631022583, guid: 70d59f8499e0d484ab2037af939dec44, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -382,6 +394,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8454360595261912180, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6254795228800436893, guid: 2745467cec155264989a2afd416a6ef8, type: 3}
@@ -479,6 +495,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -7437803552594812421, guid: 7ed07348a06902d4c800666ae1e87f8d, type: 3}
+    - target: {fileID: 2883892975173044061, guid: daaf2f0a545a7554f9e4dc3db2121e4c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8648986396915566314, guid: daaf2f0a545a7554f9e4dc3db2121e4c, type: 3}
       propertyPath: m_Name
       value: EmptyItem (1)
@@ -569,6 +589,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3286163911610860551, guid: 24c073b884eed9b469002a1fccd60dc2, type: 3}
+    - target: {fileID: 8444821355631022583, guid: 70d59f8499e0d484ab2037af939dec44, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
