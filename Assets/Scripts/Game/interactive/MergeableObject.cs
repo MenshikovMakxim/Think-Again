@@ -13,7 +13,6 @@ namespace Game.Interactive
         
         [Tooltip("Вибери тип, і об'єкт сам знайде свої дані в Базі")]
         [SerializeField] private ItemType initialType = ItemType.None;
-        [SerializeField] private float resizeCollision = 2f;
         
         private ItemSO _itemData;
 
@@ -21,6 +20,7 @@ namespace Game.Interactive
         private Collider2D _collider2D;
         private IMergeSystem _mergeSystem;
         private DraggableItem _draggableComponent;
+        private AutoSizeCollider _autoSizeCollider;
         
         public Transform Transform => transform;
 
@@ -29,6 +29,7 @@ namespace Game.Interactive
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _collider2D = GetComponent<Collider2D>();
             _draggableComponent = GetComponent<DraggableItem>();
+            _autoSizeCollider = GetComponent<AutoSizeCollider>();
         }
 
         private void Start()
@@ -224,8 +225,9 @@ namespace Game.Interactive
                 if (_spriteRenderer != null) 
                 {
                     _spriteRenderer.sprite = _itemData.itemSprite;
-                    ResizeCollider(_spriteRenderer);
-                    
+                    // ResizeCollider(_spriteRenderer);
+                    _autoSizeCollider.ResizeCollider();
+
                 }
                 
                 transform.localScale = _itemData.defaultScale; 
@@ -233,21 +235,21 @@ namespace Game.Interactive
             }
         }
 
-        private void ResizeCollider(SpriteRenderer sprite)
-        {
-            Vector2 spriteSize = sprite.sprite.bounds.size;
-            
-            if (TryGetComponent<CircleCollider2D>(out var circle))
-            {
-                circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / resizeCollision;
-            }
-            
-            if (TryGetComponent<BoxCollider2D>(out var box))
-            {
-                box.size = spriteSize;
-                box.offset = sprite.sprite.bounds.center - transform.position;
-            }
-        }
+        // private void ResizeCollider(SpriteRenderer sprite)
+        // {
+        //     Vector2 spriteSize = sprite.sprite.bounds.size;
+        //     
+        //     if (TryGetComponent<CircleCollider2D>(out var circle))
+        //     {
+        //         circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / resizeCollision;
+        //     }
+        //     
+        //     if (TryGetComponent<BoxCollider2D>(out var box))
+        //     {
+        //         box.size = spriteSize;
+        //         box.offset = sprite.sprite.bounds.center - transform.position;
+        //     }
+        // }
 
         private void OnValidate()
         {

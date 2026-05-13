@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.SO;
@@ -8,6 +9,13 @@ namespace Game.Systems
     {
         private Dictionary<ItemType, ItemSO> _itemDatabase;
         private Dictionary<(ItemType, ItemType), RecipeSO> _recipeDatabase;
+        
+        // public static event Action<int> OnLevelCompleted;
+        //
+        // public static void RaiseLevelCompleted(int index)
+        // {
+        //     OnLevelCompleted?.Invoke(index);
+        // }
 
         private void Awake()
         {
@@ -17,12 +25,12 @@ namespace Game.Systems
         
         private void OnEnable()
         {
-            EventBus.OnLevelStarted += SaveLevel;
+            EventBus.OnLevelCompleted += SaveLevel;
         }
         
         private void OnDisable()
         {
-            EventBus.OnLevelStarted -= SaveLevel;
+            EventBus.OnLevelCompleted += SaveLevel;
         }
 
         #region Ініціалізація
@@ -120,7 +128,7 @@ namespace Game.Systems
         
         #endregion
 
-        private void SaveLevel(GameObject winObject, int index)
+        private void SaveLevel(int index)
         {
             int nextLevel = index + 1;
             int highestUnlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);

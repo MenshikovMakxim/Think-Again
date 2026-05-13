@@ -15,10 +15,6 @@ public class LevelData : MonoBehaviour
     [Header("Win Object")]
     [SerializeField] private ItemSO winObject;
     
-    // public bool IsWinObject(ItemSO item)
-    // {
-    //     return item != null && winObject != null && item.ID == winObject.ID;
-    // }
     public bool IsWinObject(ItemSO item)
     {
         return item != null && winObject != null && item.itemType == winObject.itemType;

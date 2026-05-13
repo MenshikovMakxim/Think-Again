@@ -33,7 +33,6 @@ public class LevelBounds : MonoBehaviour
         DrawRoundedOutline();
         outlineRenderer.startColor = color;
         outlineRenderer.endColor = color;
-        
         SpawnAndFadeLocalOverlay();
         
     }

@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 using Game.Interfaces;
+using Game.Systems;
 
 public class LevelManager : MonoBehaviour
 {
@@ -66,4 +68,10 @@ public class LevelManager : MonoBehaviour
     {
         return _currentLevelIndex == CountLevels();
     }
+    
+    public void RaiseCompletedLevel()
+    {
+        EventBus.RaiseLevelCompleted(_currentLevelIndex);
+    }
+    
 }

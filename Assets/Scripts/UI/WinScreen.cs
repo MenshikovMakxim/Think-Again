@@ -31,6 +31,7 @@ public class WinScreen : MonoBehaviour
     {
         SetupPopup();
         PlayAnimation();
+        levelManager.RaiseCompletedLevel();
     }
 
     private void InitializeIfNeeded()
