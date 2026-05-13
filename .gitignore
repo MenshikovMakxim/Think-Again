@@ -76,3 +76,9 @@ crashlytics-build.properties
 
 #Jetbrains
 /.idea
+
+/.vscode
+
+/_Recovery
+/Fonts
+Think-Again.slnx
