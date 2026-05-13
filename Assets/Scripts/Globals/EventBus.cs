@@ -60,4 +60,11 @@ public static class EventBus
     {
         OnUIButtonClicked?.Invoke();
     }
+    
+    public static event Action<int> OnLevelCompleted;
+    
+    public static void RaiseLevelCompleted(int index)
+    {
+        OnLevelCompleted?.Invoke(index);
+    }
 }

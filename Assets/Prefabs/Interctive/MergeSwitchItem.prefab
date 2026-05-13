@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1316050631535910239}
   - component: {fileID: -7528139527295968469}
   - component: {fileID: 116757740331655279}
+  - component: {fileID: -2672143581482355146}
   m_Layer: 0
   m_Name: MergeSwitchItem
   m_TagString: Untagged
@@ -94,7 +95,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!50 &410996506882285005
 Rigidbody2D:
@@ -177,6 +178,7 @@ MonoBehaviour:
   itemDataToPass: {fileID: 0}
   objectsToToggle:
   - {fileID: 0}
+  makeDraggable: 0
 --- !u!114 &-7528139527295968469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,4 +206,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MergeableItem
   initialType: 0
+--- !u!114 &-2672143581482355146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648986396915566314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c010fd885222d3b49b5ebd2556a6ed4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoSizeCollider
   resizeCollision: 2

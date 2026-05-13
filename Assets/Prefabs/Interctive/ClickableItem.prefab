@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5320102161616760564}
   - component: {fileID: 5305168639643294065}
   - component: {fileID: 8389333821607085393}
+  - component: {fileID: 7298228480755489326}
   m_Layer: 0
   m_Name: ClickableItem
   m_TagString: Untagged
@@ -93,7 +94,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!50 &2115825679546336283
 Rigidbody2D:
@@ -185,3 +186,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClickJuice
   squishScale: 0.8
   animationDuration: 0.15
+--- !u!114 &7298228480755489326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172341187819736636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c010fd885222d3b49b5ebd2556a6ed4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoSizeCollider
+  resizeCollision: 2

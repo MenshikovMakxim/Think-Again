@@ -6,12 +6,12 @@ namespace Game.Effects
 {
     public class ClickJuice : MonoBehaviour, IClickable
     {
-        [Header("Налаштування 'Жмяку'")]
+        [Header("Налаштування")]
         [Tooltip("Наскільки предмет стискається (0.8 = до 80% від розміру)")]
         [SerializeField]
         private float squishScale = 0.8f;
 
-        [Tooltip("Час стискання (туди-сюди)")] [SerializeField]
+        [Tooltip("Час анімації")] [SerializeField]
         private float animationDuration = 0.15f;
 
         private Vector3 _originalScale;

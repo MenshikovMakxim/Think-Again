@@ -1,42 +1,48 @@
+using System;
 using UnityEngine;
 
 [ExecuteAlways] 
-[RequireComponent(typeof(RectTransform), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class AutoSizeCollider : MonoBehaviour
 {
-    private RectTransform _rectTransform;
     private BoxCollider2D _collider;
+    private SpriteRenderer _spriteRenderer;
+
+    public float resizeCollision = 2f; // більше - зменшення, менше - збільшення
 
     private void Awake()
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _collider = GetComponent<BoxCollider2D>();
-    }
-    
-    private void OnRectTransformDimensionsChange()
-    {
-        UpdateColliderSize();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void UpdateColliderSize()
+    private void Start()
     {
+        ResizeCollider();
+    }
 
-        if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
-        if (_collider == null) _collider = GetComponent<BoxCollider2D>();
+    public void ResizeCollider()
+    {
+        if (_spriteRenderer == null) return;
         
-        if (_rectTransform != null && _collider != null)
-        {
-
-            _collider.size = _rectTransform.rect.size;
+        Vector2 spriteSize = _spriteRenderer.sprite.bounds.size;
             
-            _collider.offset = Vector2.zero; 
+        if (TryGetComponent<CircleCollider2D>(out var circle))
+        {
+            circle.radius = Mathf.Max(spriteSize.x, spriteSize.y) / resizeCollision;
+        }
+            
+        if (TryGetComponent<BoxCollider2D>(out var box))
+        {
+            box.size = spriteSize;
+            box.offset = _spriteRenderer.sprite.bounds.center - transform.position;
         }
     }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        UpdateColliderSize();
+        ResizeCollider();
     }
 #endif
 }
