@@ -7910,7 +7910,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8899930490741171521, guid: 365db6bf1d2b6944bb4141b68183a854, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: d45e110fac7d7fa4ba826e44054b646f, type: 3}
+  m_Resource: {fileID: 8300000, guid: ccbe18c6170c4d3409c2146690ce86a2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bd37d95f535d43a8da7d770066871, type: 3}
   m_Name: r_stick_x_palm
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  input1: 13
+  input1: 12
   input2: 10
   resultItem: 4
   consumeInput1: 0
